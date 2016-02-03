@@ -69,6 +69,12 @@ utilize an observation principle approach in modeling pedestrian evacuation,
 in which pedestrians first observe their environment and then make a final
 decision on strategy based on obtained data.
 
+There are several takeaways from the literature described above that have potential applicability to the model at hand.  First, on the topic of modeling pedestrian walkways, several papers focused on either a single passageway, enclosed areas with obstacles (walls, pillars, etc), or evacuation from a room with a single doorway.  However, modeling walkways as a directed graph (Fang ant colonies ref) seems feasible given the problem at hand, where there are multiple passages one can take to get to a single destination.  In papers where cellular automata was utilized, the median size of each cell on the walkway was 0.4m^2 (Blue, Burstedde, Weifeng).
+
+Second, on the topic of pedestrian modeling, multiple walking speed techniques were used, ranging from a constant speed of 1 m/s (Weifeng) or 1.3 m/s (Burstedde), to using a distribution resembling a step function (Blue) or a Normal distribution (Klupfel).  In either distribution, the median walking speed was also approximately 1.3 m/s.  For reaction to stimuli, 0.3 seconds was utilized (Burstedde), which was 1 time step in that particular simulation.  Incorporation of opportunistic side-stepping was done (Blue), in addition to using least-cost algorithms for establishing the path a pedestrian would like to take (Fang ant colonies ref).  In the context of cellular automata, analyzing a given pedestrian's cell's neighbors in either a 4-connected (Weifeng) or 8-connected fashion (Burstedde) to decide in which direction the pedestrian would like to walk for the next time step was utilized.  This, coupled with a dynamic floor field (Burstedde) to factor in long-distance forces, could be utilized.
+
+Finally, simulation execution practices were also gleaned.  Care must be taken to do parallel-based updating to avoid sequential updating from interfering with underlying model execution (Blue).  The practice of using a deterministic model running with randomized initial conditions has precedent (Biham).  Finally, to achieve statistical significance, 20 runs per configuration has been used (Blue).
+
 \bibliography{template}{}
 \bibliographystyle{plain}
 \end{document}
