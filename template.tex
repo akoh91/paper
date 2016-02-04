@@ -22,16 +22,17 @@ and animal experimention-based approaches have been used
 common phenomenoma: clogging, side-stepping, lane formation, and herding
 behavior, among them.
 
-These phenomena manifest themselves in different ways and at different magnitudes
-depending on the system being modeled. In one of the early explorations of 2D
-cellular automata to simulating vehicular traffic flow, Biham and Middleton
-\cite{biham1992self} note the presence of a sharp \textit{jamming transition}
-in which all cars in the simulation transition from moving at maximal speed to
-being stuck. Similar effects were noted in simulations of bi-directional
-pedestrian movement, with Weifeng, Lizhong, and Weicheng
-\cite{weifeng2003simulation} finding that as total pedestrian density increases,
-a critical value is reached at which the system transitions into a jammed state
-where only a few pedestrians are able to proceed.
+These phenomena manifest themselves in different ways and at different
+magnitudes depending on the system being modeled. In one of the early
+explorations of 2D cellular automata for simulating traffic flow in the related
+domain of vehicular traffic simulation, Biham and Middleton \cite{biham1992self}
+note the presence of a sharp
+\textit{jamming transition} in which all cars in the simulation transition from
+moving at maximal speed to being stuck. Similar effects were noted in
+simulations of bi-directional pedestrian movement, with Weifeng, Lizhong, and
+Weicheng \cite{weifeng2003simulation} finding that as total pedestrian density
+increases, a critical value is reached at which the system transitions into a
+jammed state where only a few pedestrians are able to proceed.
 
 In a slightly different take on the problem, Okazaki and Matsushita
 \cite{okazaki1993study} modeled pedestrian evacuation using Coulomb's Law, with
@@ -44,7 +45,7 @@ notes an explicit ``faster-is-slower" effect, in which attempting to move faster
 results in a smaller average speed of leaving at high pedestrian density in
 evacuation scenarios.
 
-In a more recent study, Helbing et al. \cite{helbing2005self} uses a
+In a more recent study, Helbing et al. \cite{helbing2005self} use a
 ``social force" model, which states that pedestrians operate in some sense
 automatically when reacting to obstacles and other pedestrians, applying
 strategies that have been learned to be most effective over time. Several
@@ -69,11 +70,41 @@ utilize an observation principle approach in modeling pedestrian evacuation,
 in which pedestrians first observe their environment and then make a final
 decision on strategy based on obtained data.
 
-There are several takeaways from the literature described above that have potential applicability to the model at hand.  First, on the topic of modeling pedestrian walkways, several papers focused on either a single passageway, enclosed areas with obstacles (walls, pillars, etc), or evacuation from a room with a single doorway.  However, modeling walkways as a directed graph (Fang ant colonies ref) seems feasible given the problem at hand, where there are multiple passages one can take to get to a single destination.  In papers where cellular automata was utilized, the median size of each cell on the walkway was 0.4m^2 (Blue, Burstedde, Weifeng).
+There are several takeaways from the literature described above that have
+potential applicability to the model at hand. First, on the topic of modeling
+pedestrian walkways, several papers focused on either a single passageway,
+enclosed areas with obstacles (walls, pillars, etc.), or evacuation from a
+room with a single doorway. However, modeling walkways as a directed graph
+\cite{fang2011hierarchical} seems feasible given the problem at hand, where
+there are multiple pathways one can take to get to a single destination. In
+papers where cellular automata was utilized, the median size of each cell on the
+walkway was 0.4m\textsuperscript{2}
+\cite{blue2001cellular,burstedde2001simulation,weifeng2003simulation}.
 
-Second, on the topic of pedestrian modeling, multiple walking speed techniques were used, ranging from a constant speed of 1 m/s (Weifeng) or 1.3 m/s (Burstedde), to using a distribution resembling a step function (Blue) or a Normal distribution (Klupfel).  In either distribution, the median walking speed was also approximately 1.3 m/s.  For reaction to stimuli, 0.3 seconds was utilized (Burstedde), which was 1 time step in that particular simulation.  Incorporation of opportunistic side-stepping was done (Blue), in addition to using least-cost algorithms for establishing the path a pedestrian would like to take (Fang ant colonies ref).  In the context of cellular automata, analyzing a given pedestrian's cell's neighbors in either a 4-connected (Weifeng) or 8-connected fashion (Burstedde) to decide in which direction the pedestrian would like to walk for the next time step was utilized.  This, coupled with a dynamic floor field (Burstedde) to factor in long-distance forces, could be utilized.
+Second, on the topic of pedestrian modeling, multiple walking speed techniques
+were used, ranging from a constant speed of 1 m/s \cite{weifeng2003simulation}
+or 1.3 m/s \cite{burstedde2001simulation}, to using a distribution resembling a
+step function \cite{blue2001cellular} or a Normal distribution
+\cite{klupfel2005models}. In either distribution, the median walking speed was
+also approximately 1.3 m/s. For reaction to stimuli, 0.3 seconds was utilized
+\cite{burstedde2001simulation}, which was one time step in that particular
+simulation. Incorporation of opportunistic side-stepping was done
+\cite{blue2001cellular}, in addition to using least-cost algorithms for
+establishing the path a pedestrian would like to take
+\cite{fang2011hierarchical}. In the context of cellular automata, analyzing a
+given pedestrian's cell's neighbors in either a 4-connected
+\cite{weifeng2003simulation} or 8-connected fashion
+\cite{burstedde2001simulation} to decide in which direction the pedestrian would
+like to walk for the next time step was utilized. This, coupled with a dynamic
+floor field \cite{burstedde2001simulation} to factor in long-distance forces,
+could be utilized.
 
-Finally, simulation execution practices were also gleaned.  Care must be taken to do parallel-based updating to avoid sequential updating from interfering with underlying model execution (Blue).  The practice of using a deterministic model running with randomized initial conditions has precedent (Biham).  Finally, to achieve statistical significance, 20 runs per configuration has been used (Blue).
+Finally, simulation execution practices were also gleaned. Care must be taken
+to do parallel-based updating to avoid sequential updating from interfering with
+underlying model execution \cite{blue2001cellular}. The practice of using
+a deterministic model running with randomized initial conditions has precedent
+\cite{biham1992self}. Finally, to achieve statistical significance, 20 runs per
+configuration has been used \cite{blue2001cellular}.
 
 \bibliography{template}{}
 \bibliographystyle{plain}

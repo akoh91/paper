@@ -5,6 +5,13 @@ Ofer Biham, A~Alan Middleton, and Dov Levine.
 \newblock Self-organization and a dynamical transition in traffic-flow models.
 \newblock {\em Physical Review A}, 46(10):R6124, 1992.
 
+\bibitem{blue2001cellular}
+Victor~J Blue and Jeffrey~L Adler.
+\newblock Cellular automata microsimulation for modeling bi-directional
+  pedestrian walkways.
+\newblock {\em Transportation Research Part B: Methodological}, 35(3):293--312,
+  2001.
+
 \bibitem{burstedde2001simulation}
 Carsten Burstedde, Kai Klauck, Andreas Schadschneider, and Johannes Zittartz.
 \newblock Simulation of pedestrian dynamics using a two-dimensional cellular
@@ -39,6 +46,12 @@ Armel~Ulrich Kemloh~Wagoum, Armin Seyfried, and Stefan Holl.
 \newblock Modeling the dynamic route choice of pedestrians to assess the
   criticality of building evacuation.
 \newblock {\em Advances in Complex Systems}, 15(07):1250029, 2012.
+
+\bibitem{klupfel2005models}
+Hubert Kl{\"u}pfel, Michael Schreckenberg, and Tim Meyer-K{\"o}nig.
+\newblock Models for crowd movement and egress simulation.
+\newblock In {\em Traffic and Granular Flow'03}, pages 357--372. Springer,
+  2005.
 
 \bibitem{okazaki1993study}
 Shigeyuki Okazaki and Satoshi Matsushita.
