@@ -2,6 +2,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[colorlinks]{hyperref}
 \usepackage{cite}
+\usepackage{graphicx}
+\usepackage{float}
 
 \title{Literature Review: CSE 6730 Project 1}
 \author{Chris Dunlap, Allen Koh, Matt May}
@@ -20,7 +22,37 @@
 The efficient evacuation of physical structures is an important problem with a
 long history of multi-disciplinary study \cite{zheng2009modeling}. For this
 study, we focus specifically on the problem of efficiently evacuating the
-area around Bobby Dodd Stadium in Atlanta, GA.
+area around Bobby Dodd Stadium in Atlanta, GA. Bobby Dodd Stadium, the home of
+the the NCAA Division-I Georgia Tech Yellow Jackets football team, has a
+seating capacity of 55,000 individuals.
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth,natwidth=521,natheight=435]{stadium_diagram_updated.png}
+  \caption{Bobby Stadium Stadium seating chart.}
+  \label{fig:polygon}
+\end{figure}
+
+Our primary objective in this study is to minimize the pedestrian evacuation
+time of the stadium and its surrounding area by attendees following a home
+football game. We do this by taking a parametric approach, in which we explore
+the effects of road closures, strategically placed guidance symbols
+(i.e., signs), and the ``takeover" of certain intersections by law enforcement
+in promoting an optimal result.
+
+For purposes of this study, we define the system under investigation (SUI) as a
+rectangular polygon (Fig. \ref{fig:polygon}) surrounding the stadium. To be clear,
+the SUI is defined as the area outside the stadium, and not inclusive of the
+stadium itself.
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth,natwidth=1036,natheight=742]{cropped_map.png}
+  \caption{The system under investigation.}
+  \label{fig:polygon}
+\end{figure}
+
+The stadium has 10 ``gates," which serve as ingress (pre-game) and egress
+(post-game) sites.
+
 
 \section{Related Work}
 \label{sec:literature}
@@ -116,6 +148,21 @@ underlying model execution \cite{blue2001cellular}. The practice of using
 a deterministic model running with randomized initial conditions has precedent
 \cite{biham1992self}. Finally, to achieve statistical significance, 20 runs per
 configuration has been used \cite{blue2001cellular}.
+
+\section{Conceptual Model}
+For purposes of this simulation,
+we define the . Our simulation is simplified by focusing only on
+\textit{pedestrian} traffic, avoiding the inclusion of vehicular traffic. In
+future studies, this could be included as an enhancement.
+
+For the purposes of modeling egress, we choose to collapse
+adjacent gates together, as it seems likely a similar approach would be taken
+in reality.
+
+For purposes of modeling egress, we assume pedestrian interarrival time at the
+gate boundary is a homogenous stochastic process that follows a \textit{TODO: insert}
+distribution. As pedestrians arrive at the gate boundary, and enter the system
+under investi
 
 \bibliography{template}{}
 \bibliographystyle{plain}
