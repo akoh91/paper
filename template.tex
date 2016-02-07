@@ -164,7 +164,7 @@ The primary input to our simulation model is a stream of football game attendees
 (i.e., pedestrians) exiting Bobby Dodd Stadium following a home football game.
 For purposes of modeling this input stream, we assume pedestrian interarrival
 time at the stadium gate boundary is a homogenous stochastic process that
-follows a \textit{TODO: insert} distribution. As pedestrians arrive at the gate
+follows a \textit{TODO: Insert} distribution. As pedestrians arrive at the gate
 boundary, they enter the SUI.
 
 In addition, we select each pedestrian's target destination and walking
@@ -202,6 +202,8 @@ attributes of the \textit{Pedestrian} class.
     \caption{Attributes of the \textit{Pedestrian} entity class.}
   \label{table:ped}
 \end{table}
+
+TODO: Add pedestrian-related events.
 
 New instances of the \textit{Pedestrian} class are created and initialized
 as pedestrians exit the stadium.
@@ -267,8 +269,16 @@ in the path towards their destination. We compute the shortest path between any
 source node $N_s$ and destination node $N_d$ using Dijkstra's well-known
 algorithm \cite{dijkstra1959note}.
 
+TODO: Add more detail on the approach. \\
+TODO: Add information on the floor fields.
+
 \subsubsection{Parameters}
 
+TODO: Add parameters.\\
+TODO: Add an intersection class and list its attributes. We'll
+have to have some way to track different intersections and their states. \\
+TODO: Discuss queuing (or the lack thereof) that may be necessary for managing
+pedestrians waiting at closed intersections. How do we manage that? \\
 
 \subsubsection{Random Numbers}
 To model the egress of the stadium, we take a stochastic (probabilistic)
@@ -324,7 +334,13 @@ attempt to mitigate this simplification by drawing the speed for each
 individual from a probability distribution, which does introduce some
 variation, albeit only on an individual-to-individual basis.
 
+\section{Description of Simulation Software}
 
+\subsubsection{Architecture}
+TODO: Add.
+
+\subsubsection{Interfaces}
+TODO: Add.
 
 \bibliography{template}{}
 \bibliographystyle{plain}
