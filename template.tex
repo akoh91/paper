@@ -5,7 +5,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 
-\title{Literature Review: CSE 6730 Project 1}
+\title{Project Checkpoint: CSE 6730 Project 1}
 \author{Chris Dunlap, Allen Koh, Matt May}
 \date{February 2016}
 
@@ -33,16 +33,17 @@ seating capacity of 55,000 individuals.
 \end{figure}
 
 Our primary objective in this study is to minimize the pedestrian evacuation
-time of the stadium and its surrounding area by attendees following a home
-football game. We do this by taking a parametric approach, in which we explore
-the effects of road closures, strategically placed guidance symbols
-(i.e., signs), and the ``takeover" of certain intersections by law enforcement
-in promoting an optimal result.
+time of the stadium and its surrounding area as attendees leave the area
+following a home football game. We do this by taking a parametric approach, in
+which we explore the effects of road closures, strategically placed guidance
+symbols (i.e., signs), and the ``takeover" of certain intersections by law
+enforcement in promoting an optimal result.
 
 For purposes of this study, we define the system under investigation (SUI) as a
 rectangular polygon (Fig. \ref{fig:polygon}) surrounding the stadium. To be clear,
-the SUI is defined as the area outside the stadium, and not inclusive of the
-stadium itself.
+the SUI is defined as the area inside the polygon but outside the stadium. As
+pedestrians exit the stadium, they enter the SUI, and as the cross the boundary
+of the polygon, they exit it.
 
 \begin{figure}[H]
   \includegraphics[width=\linewidth,natwidth=1036,natheight=742]{cropped_map.png}
@@ -51,8 +52,9 @@ stadium itself.
 \end{figure}
 
 The stadium has 10 ``gates," which serve as ingress (pre-game) and egress
-(post-game) sites.
-
+(post-game) sites. These serve as the entry points to our simulation. As
+pedestrians enter the SUI, they are assigned a destination and then proceed
+to their destination by way of pedestrian walking paths (i.e., sidewalks).
 
 \section{Related Work}
 \label{sec:literature}
@@ -150,19 +152,136 @@ a deterministic model running with randomized initial conditions has precedent
 configuration has been used \cite{blue2001cellular}.
 
 \section{Conceptual Model}
-For purposes of this simulation,
-we define the . Our simulation is simplified by focusing only on
-\textit{pedestrian} traffic, avoiding the inclusion of vehicular traffic. In
-future studies, this could be included as an enhancement.
+For our simulation, we utilize a 2-dimensional cellular automata (CA)-based
+approach. We construct a discrete time-stepped model, in which the simulation
+clock advances by a fixed interval every time step. We utilize a stochastic
+(probabilistic) approach, in which the output of each individual simulation
+run is a random variable. Thus, multiple simulation runs will be performed and
+statistical analysis will be used to provide confidence levels in our results.
 
-For the purposes of modeling egress, we choose to collapse
-adjacent gates together, as it seems likely a similar approach would be taken
-in reality.
+\subsection{Inputs}
+The primary input to our simulation model is a stream of football game attendees
+(i.e., pedestrians) exiting Bobby Dodd Stadium following a home football game.
+For purposes of modeling this input stream, we assume pedestrian interarrival
+time at the stadium gate boundary is a homogenous stochastic process that
+follows a \textit{TODO: insert} distribution. As pedestrians arrive at the gate
+boundary, they enter the SUI.
 
-For purposes of modeling egress, we assume pedestrian interarrival time at the
-gate boundary is a homogenous stochastic process that follows a \textit{TODO: insert}
-distribution. As pedestrians arrive at the gate boundary, and enter the system
-under investi
+In addition, we select each pedestrian's target destination and walking
+speed at random. For selecting a target destination, we utilize \textit{TODO: Allen?}
+For determining a walking speed for each pedestrian, we sample from a
+distribution previously referenced in the literature by Blue and Adler
+\cite{blue2001cellular} (5\% fast walkers (4 cells/time step), 90\% standard
+(3 cells/time step), 5\% slow (2 cells/time step)).
+
+Pedestrians in our model can be considered a consumer entity class
+\textit{Pedestrian} with attributes which will be set and updated during the
+course of our simulation. Table \ref{table:ped} provides an overview of the
+attributes of the \textit{Pedestrian} class.
+
+\def\arraystretch{1.5}
+\begin{table}[hb!]
+  \centering
+    \begin{tabular}{p{0.2\linewidth}p{0.6\linewidth}}
+     \hline
+     Attribute & Description \\
+     \hline
+     % StartTime & Simulation clock value when the pedestrian enters the
+                 % simulation. \\
+     % Duration & Total duration of simulation time in which the pedestrian
+                % exists in the simulation. \\
+     DestinationID  & NodeID of the final destination of the pedestrian. \\
+     Speed          & Walking speed, formulated in grid cells traversed per
+                      time step. \\
+     NodeID         & Location of the pedestrian in the simulation, specified
+                      by a unique node identifier (NodeID). \\
+     EgressComplete & A binary value. This value is 0 when the pedestrian has
+                      not yet egressed, and 1 when egress is complete. \\
+     \hline
+    \end{tabular}
+    \caption{Attributes of the \textit{Pedestrian} entity class.}
+  \label{table:ped}
+\end{table}
+
+New instances of the \textit{Pedestrian} class are created and initialized
+as pedestrians exit the stadium.
+
+\subsection{Output}
+For each simulation run, when all pedestrians were evacuated from the SUI we
+determined the simulation to be complete. As this is a stochastic simulation,
+the output results must be interpreted as samples from a random process.
+
+At the conclusion of a series of simulation runs for a given set of parameters,
+we compute an average of the total egress duration across all runs from that
+series. More formally, the average egress time $E_{avg}$ for $n$ simulation runs
+can be represented as:
+
+\begin{equation}
+E_{avg} = \frac{1}{n}\sum\limits_{i=1}^n d_i
+\end{equation}
+
+where $d_i$ is the total egress duration of the $i$th simulation run. This
+output can be considered a derived scalar output variable (DSOV). We then
+define the optimal parameter strategy to be the set of parameters $P$ that
+give the the minimum value of $E_{avg}$.
+
+\subsection{Content}
+
+\subsubsection{Approach}
+Pedestrians exit the stadium from one of four potential exits. To build the
+simulation space, we overlay a 2-dimensional cellular automata grid on a map of
+the SUI. We model this space as a directed graph, a type of graph in which each
+graph edge is replaced by a directed graph edge \cite{west2001introduction}.
+
+As pedestrians exit the stadium, they are probabilistically assigned a
+destination node, which can be formulated as a unique node identifier in the
+graph. Destinations take one of three possible classes: on-campus housing
+(dormitories), parking lots, or the North Avenue Metropolitan Atlanta Rapid
+Transit Authority (MARTA) station.
+
+For each node in the graph, we precompute the least-cost path to every possible
+desination node. We represent each node as member of a \textit{Node} class, which
+has attributes as shown in Table \ref{table:node}.
+
+\def\arraystretch{1.5}
+\begin{table}[hb!]
+  \centering
+    \begin{tabular}{p{0.2\linewidth}p{0.6\linewidth}}
+     \hline
+     Attribute & Description \\
+     \hline
+     NodeID      & Unique identifier for the node. \\
+     XCoordinate & TODO \\
+     YCoordinate & TODO \\
+     Paths       & A dictionary (hash map) relating each possible destination
+                   to the NodeID of the next node in the shortest path as
+                   determined by Dijkstra's algorithm. \\
+     \hline
+    \end{tabular}
+    \caption{Attributes of the \textit{Node} class.}
+  \label{table:node}
+\end{table}
+
+At each time step, the shortest path approach is selected for every pedestrian
+in the path towards their destination. We compute the shortest path between any
+source node $N_s$ and destination node $N_d$ using Dijkstra's well-known
+algorithm \cite{dijkstra1959note}.
+
+\subsubsection{Parameters}
+
+
+\subsubsection{Random Numbers}
+To model the egress of the stadium, we take a stochastic (probabilistic)
+approach. In the context of a computer simulation, this necessitates the use of
+a pseudorandom number generator. For this study, we use the simple linear
+congruential approach. This generator is given a \textit{seed} value,
+and then produces a uniformly distributed pseudorandom number. This value is
+then used to sample from a given probability distribution.
+
+\subsection{Assumptions and Simplifications}
+Our simulation is simplified by focusing only on \textit{pedestrian} traffic,
+avoiding the inclusion of vehicular traffic. In future studies, this could be
+included as an enhancement.
 
 \bibliography{template}{}
 \bibliographystyle{plain}
