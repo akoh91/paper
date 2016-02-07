@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  6 FEB 2016 18:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  6 FEB 2016 19:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -529,30 +529,30 @@ Overfull \hbox (3.88924pt too wide) in paragraph at lines 198--198
                                                   \fi \fi 
 l.242 F
        or each node in the graph, we precompute the least-cost path to every...
-] (./template.bbl [7pdfTeX warning (ext4): destination with the same identifier
- (name{table.2}) has been already used, duplicate ignored
+] [7pdfTeX warning (ext4): destination with the same identifier (name{table.2})
+ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.7 
-    ] [8])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 288.
- [9]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 288.
+l.288 
+      ] (./template.bbl [8] [9])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 331.
+ [10]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 331.
  (./template.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 288.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 288.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 331.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 331.
 Package rerunfilecheck Info: File `template.out' has not changed.
 (rerunfilecheck)             Checksum: 611FD823CD94D3DE0F8FC63279BD088B;606.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 288.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 331.
  ) 
 Here is how much of TeX's memory you used:
- 5529 strings out of 493089
- 81173 string characters out of 6134842
+ 5530 strings out of 493089
+ 81180 string characters out of 6134842
  166555 words of memory out of 5000000
  8935 multiletter control sequences out of 15000+600000
  9155 words of font info for 32 fonts, out of 8000000 for 9000
@@ -566,10 +566,10 @@ sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr
 /local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/l
 ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/loca
 l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on template.pdf (10 pages, 465871 bytes).
+Output written on template.pdf (11 pages, 468777 bytes).
 PDF statistics:
- 193 PDF objects out of 1000 (max. 8388607)
- 167 compressed objects within 2 object streams
- 40 named destinations out of 1000 (max. 500000)
+ 197 PDF objects out of 1000 (max. 8388607)
+ 170 compressed objects within 2 object streams
+ 41 named destinations out of 1000 (max. 500000)
  91 words of extra memory for PDF output out of 10000 (max. 10000000)
 

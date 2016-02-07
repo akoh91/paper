@@ -279,9 +279,52 @@ and then produces a uniformly distributed pseudorandom number. This value is
 then used to sample from a given probability distribution.
 
 \subsection{Assumptions and Simplifications}
-Our simulation is simplified by focusing only on \textit{pedestrian} traffic,
-avoiding the inclusion of vehicular traffic. In future studies, this could be
-included as an enhancement.
+We make a number of assumptions and simplifications in constructing our
+simulation model.
+
+Firstly, our simulation is simplified by focusing only on
+\textit{pedestrian} traffic, avoiding the inclusion of vehicular traffic which
+could be significant in a football game evacuation scenario.
+
+We also assume the stadium to be at or near full seating capacity of 55,000
+individuals. While the mean value is somewhat lower than 55,000, the choice
+of 55,000 allows us to ``stress test" our model by simulating the upper bound.
+
+We assume that pedestrians stay on sidewalks and obey traffic lights, as the
+inclusion of other types of pedestrian behaviors would likely add complexity
+to the model without yielding much additional value. We also assume that main
+roads such as North Avenue remain open to vehicular traffic, avoiding a more
+unrealistic simulation that would be possible if all roads could be closed.
+
+In the realm of our ``updating rule" which specifies the next cell for a given
+pedestrian to travel to in the simulation, we assume that pedestrians are
+following a shortest-path approach. While logical, this may be an
+oversimplification, as pedestrians (particularly from the home team) may follow
+more indirect paths to their destinations following a victory.
+
+We make the assumption that all pedestrians will be traveling to one of three
+possible classes of destinations - local housing, MARTA, or a parking facility.
+While an important simplification, it is likely true in reality that pedestrians
+may be traveling to other destinations as well, such as social venues. It is
+also likely that some percentage of pedestrians may not evacuate the area for
+an extended time period, as they sit idle while waiting for friends or planning
+their destination in an ad-hoc manner.
+
+We assume the stochastic processes in this simulation to be homogenous
+stochastic processes, which can be defined as stationary stochastic processes
+where the random variables $X = X_1, X_2, ..., X_n$ are independent and
+identically distributed. While not always realistic in the context of
+simulation model-building, we do believe this assumption to be reasonable in
+the context of this simulation.
+
+There are inherent simplifications in the choice of a cellular automata-based
+simulation approach. Specifically, it is assumed that each individual travels
+a constant distance per time step through the simulation. Nevertheless, we
+attempt to mitigate this simplification by drawing the speed for each
+individual from a probability distribution, which does introduce some
+variation, albeit only on an individual-to-individual basis.
+
+
 
 \bibliography{template}{}
 \bibliographystyle{plain}
