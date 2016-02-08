@@ -23,7 +23,7 @@ The efficient evacuation of physical structures is an important problem with a
 long history of multi-disciplinary study \cite{zheng2009modeling}. For this
 study, we focus specifically on the problem of efficiently evacuating the
 area around Bobby Dodd Stadium in Atlanta, GA. Bobby Dodd Stadium, the home of
-the the NCAA Division-I Georgia Tech Yellow Jackets football team, has a
+the NCAA Division-I Georgia Tech Yellow Jackets football team, has a
 seating capacity of 55,000 individuals.
 
 \begin{figure}[H]
@@ -42,7 +42,7 @@ enforcement in promoting an optimal result.
 For purposes of this study, we define the system under investigation (SUI) as a
 rectangular polygon (Fig. \ref{fig:polygon}) surrounding the stadium. To be clear,
 the SUI is defined as the area inside the polygon but outside the stadium. As
-pedestrians exit the stadium, they enter the SUI, and as the cross the boundary
+pedestrians exit the stadium, they enter the SUI, and as they cross the boundary
 of the polygon, they exit it.
 
 \begin{figure}[H]
@@ -51,7 +51,7 @@ of the polygon, they exit it.
   \label{fig:polygon}
 \end{figure}
 
-The stadium has 10 ``gates," which serve as ingress (pre-game) and egress
+The stadium has 10 “gates," which serve as ingress (pre-game) and egress
 (post-game) sites. These serve as the entry points to our simulation. As
 pedestrians enter the SUI, they are assigned a destination and then proceed
 to their destination by way of pedestrian walking paths (i.e., sidewalks).
@@ -61,10 +61,10 @@ to their destination by way of pedestrian walking paths (i.e., sidewalks).
 
 A variety of techniques have been used to model pedestrian movement. Cellular
 automata, lattice gas, social force, fluid-dynamic, agent-based, game-theoretic,
-and animal experimention-based approaches have been used
+and animal experimentation-based approaches have been used
 \cite{zheng2009modeling}. As noted by Zheng, Zhong, and Liu
 \cite{zheng2009modeling}, models often encounter or attempt to model several
-common phenomenoma: clogging, side-stepping, lane formation, and herding
+common phenomena: clogging, side-stepping, lane formation, and herding
 behavior, among them.
 
 These phenomena manifest themselves in different ways and at different
@@ -86,12 +86,12 @@ lead to collisions. In another application of equations of natural phenomena,
 Helbing \cite{helbing1998fluid} derived fluid dynamic equations for explaining
 the movement of pedestrian crowds, observing phenomena such as the development
 of lanes, jamming, and crossing. Helbing \cite{helbing2000simulating} further
-notes an explicit ``faster-is-slower" effect, in which attempting to move faster
-results in a smaller average speed of leaving at high pedestrian density in
+notes an explicit “faster-is-slower" effect, in which attempting to move faster
+results in a lower average speed of leaving at high pedestrian density in
 evacuation scenarios.
 
 In a more recent study, Helbing et al. \cite{helbing2005self} use a
-``social force" model, which states that pedestrians operate in some sense
+“social force" model, which states that pedestrians operate in some sense
 automatically when reacting to obstacles and other pedestrians, applying
 strategies that have been learned to be most effective over time. Several
 suggestions are made to alleviate the three most common problems in pedestrian
@@ -232,17 +232,14 @@ give the the minimum value of $E_{avg}$.
 \subsubsection{Approach}
 Pedestrians exit the stadium from one of four potential exits. To build the
 simulation space, we overlay a 2-dimensional cellular automata grid on a map of
-the SUI. We model this space as a directed graph, a type of graph in which each
-graph edge is replaced by a directed graph edge \cite{west2001introduction}.
+the SUI. We model this space as a weighted graph, a type of graph in which each
+graph edge is assigned a weight corresponding to the spatial distance between the two nodes the edge spans \cite{west2001introduction}.  Note that in this section, the terms “cell” and “node” are used interchangeably.
 
-As pedestrians exit the stadium, they are probabilistically assigned a
-destination node, which can be formulated as a unique node identifier in the
-graph. Destinations take one of three possible classes: on-campus housing
+As pedestrians exit the stadium (and thus enter the SUI), they are probabilistically assigned one of the graph’s destination nodes.  When a pedestrian reaches a destination node, that constitutes them exiting the SUI. Destination nodes are chosen based on their spatial meaning when overlaid on a map of the SUI, and constitute one of three possible classes: on-campus housing
 (dormitories), parking lots, or the North Avenue Metropolitan Atlanta Rapid
 Transit Authority (MARTA) station.
 
-For each node in the graph, we precompute the least-cost path to every possible
-desination node. We represent each node as member of a \textit{Node} class, which
+Each node in the graph is a member of a \textit{Node} class, which
 has attributes as shown in Table \ref{table:node}.
 
 \def\arraystretch{1.5}
@@ -253,32 +250,65 @@ has attributes as shown in Table \ref{table:node}.
      Attribute & Description \\
      \hline
      NodeID      & Unique identifier for the node. \\
-     XCoordinate & TODO \\
-     YCoordinate & TODO \\
+     XCoordinate & X-coordinate of the node on the 2-dimensional grid. \\
+     YCoordinate & Y-coordinate of the node on the 2-dimensinoal grid. (Note: this grid has positive Y going downwards) \\
      Paths       & A dictionary (hash map) relating each possible destination
                    to the NodeID of the next node in the shortest path as
                    determined by Dijkstra's algorithm. \\
+     Neighbors & List of NodeIDs corresponding to nodes that are one edge away from the node. \\
+     Available	& Boolean value indicating whether the node is available for a pedestrian (true) or not available (false). \\
+     Type      & Enumeration of the type of node, corresponding to its spatial significance. The Type can be one of four possibilities: sidewalk, road, SUI entrance, or SUI exit. \\
      \hline
     \end{tabular}
     \caption{Attributes of the \textit{Node} class.}
   \label{table:node}
 \end{table}
 
-At each time step, the shortest path approach is selected for every pedestrian
-in the path towards their destination. We compute the shortest path between any
-source node $N_s$ and destination node $N_d$ using Dijkstra's well-known
-algorithm \cite{dijkstra1959note}.
+As part of simulation initialization, the node and edge information is populated.  For each node in the graph, we pre-compute the least-cost path to every possible
+destination node $N_d$. The shortest path between any
+given node $N_i$ and destination node $N_d$ is computed using Dijkstra's well-known
+algorithm \cite{dijkstra1959note}, and the first node in the computed path that is within the set of Neighbors is saved in the Paths attribute above.
 
-TODO: Add more detail on the approach. \\
-TODO: Add information on the floor fields.
+At each time step, a pedestrian occupying a node $N_i$ uses the Paths attribute to identify the next desired cell to walk towards given their destination node $N_d$. This drives the pedestrian’s initial instinct driving the direction they desire to move, based strictly on the shortest distance walk from their current position to $N_d$.
+
+This concept of pre-computing and saving shortest-path data is known as creating a static floor field (that is, a floor field that does not change as the simulation progresses).  However, a given pedestrian must decide where to move in light of other pedestrians and other modeled factors. Such factors do change with time, and requires the use of a dynamic floor field \cite{burstedde2001simulation}.
+
+The chosen implementation of the dynamic floor field is to be determined.  However, the static floor field will return the next node desired based on the shortest path; due to the 8-connected nature of the nodes this corresponds to a specific direction of travel spatially (for example, North or North East).  Thus, it is reasonable to also consider directions adjacent to the “shortest path” direction when deciding a pedestrian’s next move (for example, a “shortest path” direction of East would yield adjacent directions of North East and South East).
+
+It will likely happen that more than one pedestrian will decide to pursue the same node in a given time step.  In such cases, a probabilistic approach is taken to resolve this conflict (since only one pedestrian can occupy a cell at a time), depending on their respective walking speeds.  If the walking speeds are the same, each pedestrian will get an equal chance of getting the desired node.  However, if there is a disparity, pedestrian(s) featuring higher walking speeds will have a higher chance of getting the desired node, and pedestrian(s) featuring lower walking speeds will have a lower chance of getting the desired node.
 
 \subsubsection{Parameters}
 
 TODO: Add parameters.\\
-TODO: Add an intersection class and list its attributes. We'll
-have to have some way to track different intersections and their states. \\
-TODO: Discuss queuing (or the lack thereof) that may be necessary for managing
-pedestrians waiting at closed intersections. How do we manage that? \\
+Walking speed distribution
+Time step
+Map Vertex file (contains meters/cell datum)
+Map Edge file
+
+
+In addition to a \textit{Node} class, there is also an \textit{Intersection} class, which has attributes as shown in Table \ref{table:intersection}.
+
+\def\arraystretch{1.5}
+\begin{table}[hb!]
+  \centering
+    \begin{tabular}{p{0.2\linewidth}p{0.6\linewidth}}
+     \hline
+     Attribute & Description \\
+     \hline
+     IntersectionID      & Unique identifier for the intersection. \\
+     Nodes & List of NodeIDs corresponding to nodes that are part of this intersection. \\
+     Open & Boolean value indicating whether the intersection is open for pedestrian access (true) or not open (false). \\
+     \hline
+    \end{tabular}
+    \caption{Attributes of the \textit{Intersection} class.}
+  \label{table:intersection}
+\end{table}
+
+To model intersections where vehicles are allowed to pass, the nodes in the intersections are assigned to a pre-defined intersection.  The intersection is therefore made up of a group of nodes.  To simulate the crosswalk opening and closing, the nodes will be either forced closed or available for pedestrians to occupy them.  If the road is closed and vehicles are passing, then no nodes in the intersection will be available for pedestrians.  The duration of intersection closure can be determined stochastically or by the number of pedestrians waiting for the crosswalk to open.
+
+One parameter in the simulation that can be modified is determining which intersections will be completely closed to vehicles and always available for pedestrian use.  To model this case, all nodes in that intersection will behave in the same way as the nodes that make up the sidewalk.  There will be no need to create an intersection object for that intersection.  On the other hand, if there is an intersection that is closed off for pedestrians and only available for vehicular traffic, then the initial creation of nodes will not include that intersection - there will be no nodes at that intersection as no pedestrian can ever occupy those nodes.
+
+If there are pedestrians that need to cross an intersection, but the intersection is closed, then the pedestrians will not be able to advance to their next node.  This will cause a list of pedestrians to stay in their current node until the crosswalk opens up (i.e., queue).  Once that occurs, then the pedestrians can continue to their next nodes.
 
 \subsubsection{Random Numbers}
 To model the egress of the stadium, we take a stochastic (probabilistic)
@@ -306,7 +336,7 @@ to the model without yielding much additional value. We also assume that main
 roads such as North Avenue remain open to vehicular traffic, avoiding a more
 unrealistic simulation that would be possible if all roads could be closed.
 
-In the realm of our ``updating rule" which specifies the next cell for a given
+In the realm of our “updating rule" which specifies the next cell for a given
 pedestrian to travel to in the simulation, we assume that pedestrians are
 following a shortest-path approach. While logical, this may be an
 oversimplification, as pedestrians (particularly from the home team) may follow
