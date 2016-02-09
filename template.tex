@@ -1,20 +1,31 @@
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[colorlinks]{hyperref}
+\usepackage[T1]{fontenc}
 \usepackage{cite}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage[colorlinks]{hyperref}
+\hypersetup{
+  colorlinks = true,
+  linkcolor  = magenta,
+  citecolor  = magenta
+}
 
 \title{Project Checkpoint: CSE 6730 Project 1}
 \author{Chris Dunlap, Allen Koh, Matt May}
-\date{February 2016}
+\date{Spring 2016}
 
 \begin{document}
 
 \begin{titlepage}
-\maketitle
-\thispagestyle{empty}
+  \maketitle
+  \thispagestyle{empty}
 \end{titlepage}
+
+\newpage
+  \tableofcontents
+  \thispagestyle{empty}
+\newpage
 
 \section{Problem Statement}
 \label{sec:problem}
@@ -182,28 +193,24 @@ attributes of the \textit{Pedestrian} class.
 \def\arraystretch{1.5}
 \begin{table}[hb!]
   \centering
-    \begin{tabular}{p{0.2\linewidth}p{0.6\linewidth}}
+    \begin{tabular}{p{0.3\linewidth}p{0.6\linewidth}}
      \hline
      Attribute & Description \\
      \hline
-     % StartTime & Simulation clock value when the pedestrian enters the
-                 % simulation. \\
-     % Duration & Total duration of simulation time in which the pedestrian
-                % exists in the simulation. \\
-     DestinationID  & NodeID of the final destination of the pedestrian. \\
+     Destination    & \textit{Node} object (see Table \ref{table:node})
+                      corresponding to the final destination of the
+                      pedestrian. \\
      Speed          & Walking speed, formulated in grid cells traversed per
                       time step. \\
-     NodeID         & Location of the pedestrian in the simulation, specified
-                      by a unique node identifier (NodeID). \\
-     EgressComplete & A binary value. This value is 0 when the pedestrian has
-                      not yet egressed, and 1 when egress is complete. \\
+     Current        & \textit{Node} object corresponding to the current
+                      location of the pedestrian. \\
+     EgressComplete & A boolean value. This value is false when the pedestrian
+                      has not yet egressed, and true when egress is complete. \\
      \hline
     \end{tabular}
     \caption{Attributes of the \textit{Pedestrian} entity class.}
   \label{table:ped}
 \end{table}
-
-TODO: Add pedestrian-related events.
 
 New instances of the \textit{Pedestrian} class are created and initialized
 as pedestrians exit the stadium.
@@ -233,9 +240,15 @@ give the the minimum value of $E_{avg}$.
 Pedestrians exit the stadium from one of four potential exits. To build the
 simulation space, we overlay a 2-dimensional cellular automata grid on a map of
 the SUI. We model this space as a weighted graph, a type of graph in which each
-graph edge is assigned a weight corresponding to the spatial distance between the two nodes the edge spans \cite{west2001introduction}.  Note that in this section, the terms “cell” and “node” are used interchangeably.
+graph edge is assigned a weight corresponding to the spatial distance between
+the two nodes the edge spans \cite{west2001introduction}. Note that in this
+section, the terms ``cell" and ``node" are used interchangeably.
 
-As pedestrians exit the stadium (and thus enter the SUI), they are probabilistically assigned one of the graph’s destination nodes.  When a pedestrian reaches a destination node, that constitutes them exiting the SUI. Destination nodes are chosen based on their spatial meaning when overlaid on a map of the SUI, and constitute one of three possible classes: on-campus housing
+As pedestrians exit the stadium (and thus enter the SUI), they are
+probabilistically assigned one of the graph’s destination nodes.  When a
+pedestrian reaches a destination node, that constitutes them exiting the SUI.
+Destination nodes are chosen based on their spatial meaning when overlaid on a
+map of the SUI, and constitute one of three possible classes: on-campus housing
 (dormitories), parking lots, or the North Avenue Metropolitan Atlanta Rapid
 Transit Authority (MARTA) station.
 
@@ -245,70 +258,129 @@ has attributes as shown in Table \ref{table:node}.
 \def\arraystretch{1.5}
 \begin{table}[hb!]
   \centering
-    \begin{tabular}{p{0.2\linewidth}p{0.6\linewidth}}
+    \begin{tabular}{p{0.3\linewidth}p{0.6\linewidth}}
      \hline
      Attribute & Description \\
      \hline
-     NodeID      & Unique identifier for the node. \\
+     %NodeID      & Unique identifier for the node. \\
      XCoordinate & X-coordinate of the node on the 2-dimensional grid. \\
-     YCoordinate & Y-coordinate of the node on the 2-dimensinoal grid. (Note: this grid has positive Y going downwards) \\
+     YCoordinate & Y-coordinate of the node on the 2-dimensional grid.
+                   (Note: for purposes of this simulation, the y-axis is
+                    inverted.) \\
      Paths       & A dictionary (hash map) relating each possible destination
                    to the NodeID of the next node in the shortest path as
                    determined by Dijkstra's algorithm. \\
-     Neighbors & List of NodeIDs corresponding to nodes that are one edge away from the node. \\
-     Available	& Boolean value indicating whether the node is available for a pedestrian (true) or not available (false). \\
-     Type      & Enumeration of the type of node, corresponding to its spatial significance. The Type can be one of four possibilities: sidewalk, road, SUI entrance, or SUI exit. \\
+     Neighbors & Array of \textit{Node} objects corresponding to nodes that are
+                 one edge away from the node. \\
+     Available	& Boolean value indicating whether the node is available for a
+                  pedestrian (true) or not available (false). \\
+     Type      & Enumeration of the type of node, corresponding to its spatial
+                 significance. The Type can be one of four possibilities:
+                 sidewalk, road, SUI entrance, or SUI exit. \\
      \hline
     \end{tabular}
     \caption{Attributes of the \textit{Node} class.}
   \label{table:node}
 \end{table}
 
-As part of simulation initialization, the node and edge information is populated.  For each node in the graph, we pre-compute the least-cost path to every possible
-destination node $N_d$. The shortest path between any
-given node $N_i$ and destination node $N_d$ is computed using Dijkstra's well-known
-algorithm \cite{dijkstra1959note}, and the first node in the computed path that is within the set of Neighbors is saved in the Paths attribute above.
+As part of the simulation initialization, the node and edge information is
+populated. For each node in the graph, we pre-compute the least-cost path to
+every possible destination node $N_d$. In general, we can compute the shortest
+path between any given node $N_i$ and destination node $N_d$ using Dijkstra's
+well-known algorithm \cite{dijkstra1959note}. For each node in the graph, we
+compute the least-cost path to each possible destination node. A hash map
+\textit{Paths} attribute of each node stores the next node in the least-cost
+path to each destination.
 
-At each time step, a pedestrian occupying a node $N_i$ uses the Paths attribute to identify the next desired cell to walk towards given their destination node $N_d$. This drives the pedestrian’s initial instinct driving the direction they desire to move, based strictly on the shortest distance walk from their current position to $N_d$.
+%  and the first node in the computed path that
+% is within the set of \textit{Neighbors} is saved in the \textit{Paths}
+% attribute of each Node, as referenced in \ref{table:node}.
 
-This concept of pre-computing and saving shortest-path data is known as creating a static floor field (that is, a floor field that does not change as the simulation progresses).  However, a given pedestrian must decide where to move in light of other pedestrians and other modeled factors. Such factors do change with time, and requires the use of a dynamic floor field \cite{burstedde2001simulation}.
+At each time step, a pedestrian occupying a given node $N_i$ uses the
+\textit{Paths} attribute to identify the next desired cell to walk towards given
+their destination node $N_d$. This drives the pedestrian’s instinct to move
+toward their destination, based strictly on the shortest distance walk from
+their current position to $N_d$.
 
-The chosen implementation of the dynamic floor field is to be determined.  However, the static floor field will return the next node desired based on the shortest path; due to the 8-connected nature of the nodes this corresponds to a specific direction of travel spatially (for example, North or North East).  Thus, it is reasonable to also consider directions adjacent to the “shortest path” direction when deciding a pedestrian’s next move (for example, a “shortest path” direction of East would yield adjacent directions of North East and South East).
+This concept of pre-computing and saving shortest-path data is known as creating
+a static floor field (that is, a floor field that does not change as the
+simulation progresses). However, a given pedestrian must decide where to move
+in light of other pedestrians and other modeled factors. Such factors do change
+with time, and requires the use of a dynamic floor field
+\cite{burstedde2001simulation}.
 
-It will likely happen that more than one pedestrian will decide to pursue the same node in a given time step.  In such cases, a probabilistic approach is taken to resolve this conflict (since only one pedestrian can occupy a cell at a time), depending on their respective walking speeds.  If the walking speeds are the same, each pedestrian will get an equal chance of getting the desired node.  However, if there is a disparity, pedestrian(s) featuring higher walking speeds will have a higher chance of getting the desired node, and pedestrian(s) featuring lower walking speeds will have a lower chance of getting the desired node.
+The chosen implementation of the dynamic floor field is to be determined.
+However, the static floor field will return the next node desired based on the
+shortest path; due to the 8-connected nature of the nodes this corresponds
+to a specific direction of travel spatially (for example, North or North East).
+Thus, it is reasonable to also consider directions adjacent to the “shortest
+path” direction when deciding a pedestrian’s next move (for example, a “shortest
+path” direction of East would yield adjacent directions of North East and
+South East).
+
+It will likely occur that more than one pedestrian will decide to pursue the
+same node in a given time step. In such cases, a probabilistic approach is taken
+to resolve this conflict (since only one pedestrian can occupy a cell at a
+time), depending on their respective walking speeds. If the walking speeds are
+the same, each pedestrian will get an equal chance of getting the desired node.
+However, if there is a disparity, pedestrian(s) featuring higher walking speeds
+will have a higher chance of getting the desired node, and pedestrian(s)
+featuring lower walking speeds will have a lower chance of getting the desired
+node.
 
 \subsubsection{Parameters}
 
-TODO: Add parameters.\\
-Walking speed distribution
-Time step
-Map Vertex file (contains meters/cell datum)
-Map Edge file
+TODO: Add parameters. \\
+Walking speed distribution \\
+Time step \\
+Map Vertex file (contains meters/cell datum) \\
+Map Edge file \\
 
-
-In addition to a \textit{Node} class, there is also an \textit{Intersection} class, which has attributes as shown in Table \ref{table:intersection}.
+In addition to a \textit{Node} class, there is also an \textit{Intersection}
+class, which has attributes as shown in Table \ref{table:intersection}.
 
 \def\arraystretch{1.5}
 \begin{table}[hb!]
   \centering
-    \begin{tabular}{p{0.2\linewidth}p{0.6\linewidth}}
+    \begin{tabular}{p{0.3\linewidth}p{0.6\linewidth}}
      \hline
      Attribute & Description \\
      \hline
-     IntersectionID      & Unique identifier for the intersection. \\
-     Nodes & List of NodeIDs corresponding to nodes that are part of this intersection. \\
-     Open & Boolean value indicating whether the intersection is open for pedestrian access (true) or not open (false). \\
+     %IntersectionID  & Unique identifier for the intersection. \\
+     Nodes           & Array of \textit{Node} objects corresponding to nodes
+                       that are part of this intersection. \\
+     Open            & Boolean value indicating whether the intersection is open
+                       for pedestrian access (true) or not open (false). \\
      \hline
     \end{tabular}
     \caption{Attributes of the \textit{Intersection} class.}
   \label{table:intersection}
 \end{table}
 
-To model intersections where vehicles are allowed to pass, the nodes in the intersections are assigned to a pre-defined intersection.  The intersection is therefore made up of a group of nodes.  To simulate the crosswalk opening and closing, the nodes will be either forced closed or available for pedestrians to occupy them.  If the road is closed and vehicles are passing, then no nodes in the intersection will be available for pedestrians.  The duration of intersection closure can be determined stochastically or by the number of pedestrians waiting for the crosswalk to open.
+To model intersections where vehicles are allowed to pass, the nodes in the
+intersections are assigned to a pre-defined intersection. The intersection
+is therefore made up of a group of nodes. To simulate the crosswalk opening and
+closing, the nodes will be either forced closed or available for pedestrians to
+occupy them. If the road is closed and vehicles are passing, then no nodes in
+the intersection will be available for pedestrians. The duration of
+intersection closure can be determined stochastically or by the number of
+pedestrians waiting for the crosswalk to open.
 
-One parameter in the simulation that can be modified is determining which intersections will be completely closed to vehicles and always available for pedestrian use.  To model this case, all nodes in that intersection will behave in the same way as the nodes that make up the sidewalk.  There will be no need to create an intersection object for that intersection.  On the other hand, if there is an intersection that is closed off for pedestrians and only available for vehicular traffic, then the initial creation of nodes will not include that intersection - there will be no nodes at that intersection as no pedestrian can ever occupy those nodes.
+One parameter in the simulation that can be modified is determining which
+intersections will be completely closed to vehicles and always available for
+pedestrian use. To model this case, all nodes in that intersection will behave
+in the same way as the nodes that make up the sidewalk. There will be no need to
+create an intersection object for that intersection. On the other hand, if there
+is an intersection that is closed off for pedestrians and only available for
+vehicular traffic, then the initial creation of nodes will not include that
+intersection - there will be no nodes at that intersection as no pedestrian can
+ever occupy those nodes.
 
-If there are pedestrians that need to cross an intersection, but the intersection is closed, then the pedestrians will not be able to advance to their next node.  This will cause a list of pedestrians to stay in their current node until the crosswalk opens up (i.e., queue).  Once that occurs, then the pedestrians can continue to their next nodes.
+If there are pedestrians that need to cross an intersection, but the
+intersection is closed, then the pedestrians will not be able to advance to
+their next node. This will cause a list of pedestrians to stay in their
+current node until the crosswalk opens up (i.e., queue). Once that occurs, then
+the pedestrians can continue to their next nodes.
 
 \subsubsection{Random Numbers}
 To model the egress of the stadium, we take a stochastic (probabilistic)
@@ -366,11 +438,83 @@ variation, albeit only on an individual-to-individual basis.
 
 \section{Description of Simulation Software}
 
-\subsubsection{Architecture}
-TODO: Add.
+\subsection{Architecture}
+In generating our simulation, we take an object-oriented design approach. We use
+the Python programming language, which is an imperative, object-oriented,
+interpreted language that facilitates rapid development.
 
-\subsubsection{Interfaces}
-TODO: Add.
+Distinct types of entities in our simulation are represented as
+\textit{classes}. For interacting with these classes, we define a number of
+methods that function as their public interfaces.
+
+\subsection{Interfaces}
+
+\subsubsection{Pedestrian Class Interfaces}
+Pedestrians class in Table \ref{table:pedestrian_methods}.
+
+\def\arraystretch{1.5}
+\begin{table}
+  \centering
+    \begin{tabular}{p{0.3\linewidth}p{0.6\linewidth}}
+     \hline
+     Method & Description \\
+     \hline
+     Move(NewNode) & Takes one argument: a \textit{Node} object. When called,
+                     marks the node set to \textit{Current} as unavailable,
+                     sets the \textit{Current} attribute to NewNode,
+                     and marks the NewNode object as unavailable. \\
+     \hline
+    \end{tabular}
+    \caption{Methods of the \textit{Pedestrian} class.}
+  \label{table:pedestrian_methods}
+\end{table}
+
+
+\subsubsection{Node Class Interfaces}
+\textit{Node} class in Table \ref{table:node_methods}.
+
+\def\arraystretch{1.5}
+\begin{table}
+  \centering
+    \begin{tabular}{p{0.3\linewidth}p{0.6\linewidth}}
+     \hline
+     Method & Description \\
+     \hline
+     GetAvailable()     & Returns the current value of the \textit{Available}
+                          attribute for the node. \\
+     SetAvailable(bool) & Takes one argument: a boolean value. Sets the
+                          \textit{Available} attribute for the node to either
+                          true or false. \\
+     \hline
+    \end{tabular}
+    \caption{Methods of the \textit{Node} class.}
+  \label{table:node_methods}
+\end{table}
+
+\subsubsection{Intersection Class Interfaces}
+Within our simulation, we utilize a number of intersections that are
+parametrically closed and opened. Thus, we define two key methods for the
+\textit{Intersection} class in Table \ref{table:intersection_methods}.
+
+\def\arraystretch{1.5}
+\begin{table}
+  \centering
+    \begin{tabular}{p{0.3\linewidth}p{0.6\linewidth}}
+     \hline
+     Method & Description \\
+     \hline
+     %IntersectionID  & Unique identifier for the intersection. \\
+     OpenMe()  & When called, sets the \textit{Available} attribute to
+                 true for every node in its \textit{Nodes} array. Sets the
+                 \textit{Open} attribute for the intersection to true. \\
+     CloseMe() & When called, sets the \textit{Available} attribute to
+                 false for every node in its \textit{Nodes} array. Sets the
+                 \textit{Open} attribute for the intersection to false. \\
+     \hline
+    \end{tabular}
+    \caption{Methods of the \textit{Intersection} class.}
+  \label{table:intersection_methods}
+\end{table}
 
 \bibliography{template}{}
 \bibliographystyle{plain}
