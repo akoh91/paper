@@ -462,7 +462,15 @@ attributes without the need to provide explicit method definitions in code.
 
 \subsubsection{Pedestrian Class Interfaces}
 For simulating pedestrian movement, we define a \textit{Pedestrian} class as
-shown in Table \ref{table:pedestrian_methods}.
+shown in Table \ref{table:pedestrian_methods}. Pedestrians are initialized with
+an entrance node to the SUI, as well as a destination node and speed. They then
+traverse the nodes in the shortest path toward their destination node. Once
+they have reached a node with an \textit{exit} NodeType, the
+SetEgressComplete() method is called for the pedestrian with an argument of
+true, alerting the simulation that the pedestrian has finished the simulation.
+Once there are no pedestrians in the simulation remaining with the
+EgressComplete attribute set to false, the driver program breaks from the main
+simulation loop and the program exits.
 
 \def\arraystretch{1.5}
 \begin{table}
@@ -493,7 +501,22 @@ shown in Table \ref{table:pedestrian_methods}.
 \end{table}
 
 \subsubsection{Node Class Interfaces}
-\textit{Node} class in Table \ref{table:node_methods}.
+We define a \textit{Node} class as shown in Table \ref{table:node_methods}.
+Nodes are the primary abstraction for the resource entities in the simulation,
+which are sidewalks and roads. Nodes have several key attributes defined that
+can be retrieved and set. Among them, the Neighbors attribute specifies all the
+nodes that are one degree away from the node object. The Neighbors attribute is
+then used to populate the Paths attribute for the node, which is a hash map
+that gives the next node in the shortest path to each possible destination node
+in the simulation. We precompute the Paths attribute for every node in the
+graph prior to beginning the simulation. This precomputation step needs only
+be repeated when a parameter change occurs that alters the underlying node
+structure or availability.
+
+The GetNextNode() method of the Node class provides the next node in the
+shortest path for a given destination. When a pedestrian lands on a given node,
+this method is utilized to then provide the pedestrian with his next location
+in the following time step.
 
 \def\arraystretch{1.5}
 \begin{table}
