@@ -47,14 +47,14 @@ Our primary objective in this study is to minimize the pedestrian evacuation
 time of the stadium and its surrounding area as attendees leave the area
 following a home football game. We do this by taking a parametric approach, in
 which we explore the effects of road closures, strategically placed guidance
-symbols (i.e., signs), and the ``takeover" of certain intersections by law
+symbols (i.e., signs), and the ``takeover'' of certain intersections by law
 enforcement in promoting an optimal result.
 
 For purposes of this study, we define the system under investigation (SUI) as a
-rectangular polygon (Fig. \ref{fig:polygon}) surrounding the stadium. To be clear,
-the SUI is defined as the area inside the polygon but outside the stadium. As
-pedestrians exit the stadium, they enter the SUI, and as they cross the boundary
-of the polygon, they exit it.
+rectangular polygon (Fig. \ref{fig:polygon}) surrounding the stadium. To be
+clear, the SUI is defined as the area inside the polygon but outside the
+stadium. As pedestrians exit the stadium, they enter the SUI, and as they cross
+the boundary of the polygon, they exit it.
 
 \begin{figure}[H]
   \includegraphics[width=\linewidth,natwidth=1036,natheight=742]{cropped_map.png}
@@ -174,16 +174,19 @@ statistical analysis will be used to provide confidence levels in our results.
 The primary input to our simulation model is a stream of football game attendees
 (i.e., pedestrians) exiting Bobby Dodd Stadium following a home football game.
 For purposes of modeling this input stream, we assume pedestrian interarrival
-time at the stadium gate boundary is a homogenous stochastic process that
-follows a \textit{TODO: Insert} distribution. As pedestrians arrive at the gate
+time at the stadium gate boundary is a homogeneous stochastic process that
+follows a Poisson distribution. If the average rate of people exiting the
+stadium is known, the Poisson distribution will give a probability distribution
+of when the next person will exit within a set interval of time, independent
+of the last person who exited the stadium. As pedestrians arrive at the gate
 boundary, they enter the SUI.
 
 In addition, we select each pedestrian's target destination and walking
-speed at random. For selecting a target destination, we utilize \textit{TODO: Allen?}
-For determining a walking speed for each pedestrian, we sample from a
-distribution previously referenced in the literature by Blue and Adler
-\cite{blue2001cellular} (5\% fast walkers (4 cells/time step), 90\% standard
-(3 cells/time step), 5\% slow (2 cells/time step)).
+speed at random. For selecting a target destination, we utilize sample from
+an empirical distribution. For determining a walking speed for each pedestrian,
+we sample from a distribution previously referenced in the literature by Blue
+and Adler \cite{blue2001cellular} (5\% fast walkers (4 cells/time step), 90\%
+standard (3 cells/time step), 5\% slow (2 cells/time step)).
 
 Pedestrians in our model can be considered a consumer entity class
 \textit{Pedestrian} with attributes which will be set and updated during the
@@ -197,13 +200,16 @@ attributes of the \textit{Pedestrian} class.
      \hline
      Attribute & Description \\
      \hline
+     Current        & \textit{Node} object corresponding to the current
+                      location of the pedestrian. \\
      Destination    & \textit{Node} object (see Table \ref{table:node})
                       corresponding to the final destination of the
                       pedestrian. \\
+     TargetNext     & The desired next node to move to in the pedestrian's
+                      shortest path to his destination, as computed by
+                      Dijkstra's algorithm. \\
      Speed          & Walking speed, formulated in grid cells traversed per
                       time step. \\
-     Current        & \textit{Node} object corresponding to the current
-                      location of the pedestrian. \\
      EgressComplete & A boolean value. This value is false when the pedestrian
                       has not yet egressed, and true when egress is complete. \\
      \hline
@@ -242,7 +248,7 @@ simulation space, we overlay a 2-dimensional cellular automata grid on a map of
 the SUI. We model this space as a weighted graph, a type of graph in which each
 graph edge is assigned a weight corresponding to the spatial distance between
 the two nodes the edge spans \cite{west2001introduction}. Note that in this
-section, the terms ``cell" and ``node" are used interchangeably.
+section, the terms ``cell'' and ``node'' are used interchangeably.
 
 As pedestrians exit the stadium (and thus enter the SUI), they are
 probabilistically assigned one of the graph’s destination nodes.  When a
@@ -262,7 +268,7 @@ has attributes as shown in Table \ref{table:node}.
      \hline
      Attribute & Description \\
      \hline
-     %NodeID      & Unique identifier for the node. \\
+     NodeID      & Unique identifier for the node. \\
      XCoordinate & X-coordinate of the node on the 2-dimensional grid. \\
      YCoordinate & Y-coordinate of the node on the 2-dimensional grid.
                    (Note: for purposes of this simulation, the y-axis is
@@ -274,9 +280,9 @@ has attributes as shown in Table \ref{table:node}.
                  one edge away from the node. \\
      Available	& Boolean value indicating whether the node is available for a
                   pedestrian (true) or not available (false). \\
-     Type      & Enumeration of the type of node, corresponding to its spatial
-                 significance. The Type can be one of four possibilities:
-                 sidewalk, road, SUI entrance, or SUI exit. \\
+     NodeType   & Enumeration of the type of node, corresponding to its
+                  spatial significance. The NodeType can be one of four
+                  possibilities: sidewalk, road, SUI entrance, or SUI exit. \\
      \hline
     \end{tabular}
     \caption{Attributes of the \textit{Node} class.}
@@ -291,10 +297,6 @@ well-known algorithm \cite{dijkstra1959note}. For each node in the graph, we
 compute the least-cost path to each possible destination node. A hash map
 \textit{Paths} attribute of each node stores the next node in the least-cost
 path to each destination.
-
-%  and the first node in the computed path that
-% is within the set of \textit{Neighbors} is saved in the \textit{Paths}
-% attribute of each Node, as referenced in \ref{table:node}.
 
 At each time step, a pedestrian occupying a given node $N_i$ uses the
 \textit{Paths} attribute to identify the next desired cell to walk towards given
@@ -330,14 +332,22 @@ node.
 
 \subsubsection{Parameters}
 
-TODO: Add parameters. \\
-Walking speed distribution \\
-Time step \\
-Map Vertex file (contains meters/cell datum) \\
-Map Edge file \\
+To optimize the egress of everyone exiting the stadium in our SUI, there are
+several parameters that can be altered. The first parameter is closing certain
+streets or intersections meant for vehicular traffic for pedestrians only (i.e.
+roads become sidewalks). The second is having traffic police take over certain
+intersections to control the pedestrian flow (i.e. overrule traffic lights).
+The third is placing signs along the sidewalk to direct pedestrians to walk a
+certain direction to their destination. The optimal time for everyone to exit
+the stadium and the SUI could be a combination of the three parameters.
+For example, directing pedestrian traffic to an intersection that is closed to
+all vehicles or controlled by a police officer is a combination that is likely
+to produce better results than only directing pedestrians to a regular
+crosswalk.
 
-In addition to a \textit{Node} class, there is also an \textit{Intersection}
-class, which has attributes as shown in Table \ref{table:intersection}.
+To simulate these parameters, in addition to a \textit{Node} class, there is
+also an \textit{Intersection} class, which has attributes as shown in Table
+\ref{table:intersection}.
 
 \def\arraystretch{1.5}
 \begin{table}[hb!]
@@ -346,11 +356,10 @@ class, which has attributes as shown in Table \ref{table:intersection}.
      \hline
      Attribute & Description \\
      \hline
-     %IntersectionID  & Unique identifier for the intersection. \\
-     Nodes           & Array of \textit{Node} objects corresponding to nodes
-                       that are part of this intersection. \\
-     Open            & Boolean value indicating whether the intersection is open
-                       for pedestrian access (true) or not open (false). \\
+     Nodes & Array of \textit{Node} objects corresponding to nodes
+             that are part of this intersection. \\
+     Open  & Boolean value indicating whether the intersection is open
+             for pedestrian access (true) or not open (false). \\
      \hline
     \end{tabular}
     \caption{Attributes of the \textit{Intersection} class.}
@@ -400,7 +409,7 @@ could be significant in a football game evacuation scenario.
 
 We also assume the stadium to be at or near full seating capacity of 55,000
 individuals. While the mean value is somewhat lower than 55,000, the choice
-of 55,000 allows us to ``stress test" our model by simulating the upper bound.
+of 55,000 allows us to ``stress test'' our model by simulating the upper bound.
 
 We assume that pedestrians stay on sidewalks and obey traffic lights, as the
 inclusion of other types of pedestrian behaviors would likely add complexity
@@ -408,7 +417,7 @@ to the model without yielding much additional value. We also assume that main
 roads such as North Avenue remain open to vehicular traffic, avoiding a more
 unrealistic simulation that would be possible if all roads could be closed.
 
-In the realm of our “updating rule" which specifies the next cell for a given
+In the realm of our ``updating rule'' which specifies the next cell for a given
 pedestrian to travel to in the simulation, we assume that pedestrians are
 following a shortest-path approach. While logical, this may be an
 oversimplification, as pedestrians (particularly from the home team) may follow
@@ -444,17 +453,21 @@ the Python programming language for our implementation.
 
 Distinct types of entities in our simulation are represented as
 \textit{classes}. For interacting with these classes, we define a number of
-methods that function as their public interfaces.
+methods that function as their public interfaces. It should be noted that while
+we may define explicit ``getter'' and ``setter'' methods in our conceptual model,
+the Python programming language provides these interfaces on declared object
+attributes without the need to provide explicit method definitions in code.
 
 \subsection{Interfaces}
 
 \subsubsection{Pedestrian Class Interfaces}
-Pedestrians class in Table \ref{table:pedestrian_methods}.
+For simulating pedestrian movement, we define a \textit{Pedestrian} class as
+shown in Table \ref{table:pedestrian_methods}.
 
 \def\arraystretch{1.5}
 \begin{table}
   \centering
-    \begin{tabular}{p{0.3\linewidth}p{0.6\linewidth}}
+    \begin{tabular}{p{0.5\linewidth}p{0.5\linewidth}}
      \hline
      Method & Description \\
      \hline
@@ -462,12 +475,22 @@ Pedestrians class in Table \ref{table:pedestrian_methods}.
                      marks the node set to \textit{Current} as unavailable,
                      sets the \textit{Current} attribute to NewNode,
                      and marks the NewNode object as unavailable. \\
+     GetCurrentNode() \newline SetCurrentNode(CurrentNode) & Returns or sets
+                        the current node that the pedestrian is occupying. \\
+     GetDestinationNode() \newline SetDestinationNode(DestNode) & Returns or
+                        sets the destination node for the pedestrian. \\
+     GetTargetNext() \newline SetTargetNext(TargetNext) & Returns or
+                       sets the target next node for the pedestrian in the
+                       shortest path to his destination. \\
+     GetEgressComplete() \newline SetEgressComplete(Complete) & Returns or
+                        sets the current egress status of the pedestrian. True
+                        once the pedestrian has exited the SUI, and false
+                        otherwise. \\
      \hline
     \end{tabular}
     \caption{Methods of the \textit{Pedestrian} class.}
   \label{table:pedestrian_methods}
 \end{table}
-
 
 \subsubsection{Node Class Interfaces}
 \textit{Node} class in Table \ref{table:node_methods}.
@@ -475,15 +498,28 @@ Pedestrians class in Table \ref{table:pedestrian_methods}.
 \def\arraystretch{1.5}
 \begin{table}
   \centering
-    \begin{tabular}{p{0.3\linewidth}p{0.6\linewidth}}
+    \begin{tabular}{p{0.5\linewidth}p{0.5\linewidth}}
      \hline
      Method & Description \\
      \hline
-     GetAvailable()     & Returns the current value of the \textit{Available}
-                          attribute for the node. \\
-     SetAvailable(bool) & Takes one argument: a boolean value. Sets the
-                          \textit{Available} attribute for the node to either
-                          true or false. \\
+     GetAvailable() \newline SetAvailable(Bool)  & Gets or sets the current
+                        value of the \textit{Available} attribute for the node.
+                        If the setter, must be a boolean true or false. \\
+     GetNextNode(DestinationNode) & Takes one argument: destination
+                                    \textit{Node} object. Returns the next
+                                    \textit{Node} object for the pedestrian to
+                                    advance to based on the pedestrian’s final
+                                    destination. \\
+     GetPaths() \newline SetPaths(Paths) & Returns or sets the Paths attribute
+                of the node, which is a hash map that gives the next node in
+                the shortest path to each possible destination node in the
+                simulation. \\
+     GetNeighborNodes() \newline SetNeighborNodes(ListNodes) & Returns or sets
+                        the Neighbors attribute of the node, corresponding to
+                        the nodes one edge length away. If the setter, takes
+                        one argument: list of \textit{Node} objects. \\
+     GetNodeType() & Returns the NodeType Attribute of the node. \\
+     GetNodeID() & Returns the NodeID Attribute of the node. \\
      \hline
     \end{tabular}
     \caption{Methods of the \textit{Node} class.}
@@ -498,21 +534,25 @@ parametrically closed and opened. Thus, we define two key methods for the
 \def\arraystretch{1.5}
 \begin{table}
   \centering
-    \begin{tabular}{p{0.3\linewidth}p{0.6\linewidth}}
+    \begin{tabular}{p{0.5\linewidth}p{0.5\linewidth}}
      \hline
      Method & Description \\
      \hline
-     %IntersectionID  & Unique identifier for the intersection. \\
      OpenMe()  & When called, sets the \textit{Available} attribute to
                  true for every node in its \textit{Nodes} array. Sets the
                  \textit{Open} attribute for the intersection to true. \\
      CloseMe() & When called, sets the \textit{Available} attribute to
                  false for every node in its \textit{Nodes} array. Sets the
                  \textit{Open} attribute for the intersection to false. \\
+     GetNodes() & Returns the list of \textit{Node} objects that are part of the
+                  intersection. \\
+     SetNodes(ListNodes) & Takes one argument: list of \textit{Node} objects.
+                           Sets the \textit{Node} objects that make up the
+                           intersection. \\
      \hline
     \end{tabular}
     \caption{Methods of the \textit{Intersection} class.}
-  \label{table:intersection_methods}
+    \label{table:intersection_methods}
 \end{table}
 
 \bibliography{template}{}
