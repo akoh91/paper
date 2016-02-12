@@ -24,6 +24,11 @@ Edsger~W Dijkstra.
 \newblock A note on two problems in connexion with graphs.
 \newblock {\em Numerische mathematik}, 1(1):269--271, 1959.
 
+\bibitem{eppstein-dijkstra}
+David Eppstein.
+\newblock Dijkstra's algorithm for shortest paths.
+\newblock \url{https://www.ics.uci.edu/~eppstein/161/python/dijkstra.py}, 2002.
+
 \bibitem{fang2011hierarchical}
 Zhixiang Fang, Xinlu Zong, Qingquan Li, Qiuping Li, and Shengwu Xiong.
 \newblock Hierarchical multi-objective evacuation routing in stadium using ant
