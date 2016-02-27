@@ -420,12 +420,26 @@ To model the egress of the stadium, we take a stochastic (probabilistic)
 approach. In the context of a computer simulation, this necessitates the use of
 a pseudorandom number generator.
 
-In this initial project checkpoint, we utilize a pre-existing random number
-generator. However, for our final simulation model, we intend to use the simple
-linear congruential approach to create our own generator. This generator is
-given a \textit{seed} value, and then produces a uniformly distributed
-pseudorandom number. This value is then used to sample from a given probability
-distribution.
+For our simulation, we use the Lehmer random number generator
+\cite{payne1969coding}, also known as the Park-Miller random number generator
+\cite{park1988random}. For verification of the generator, we performed
+100,000 iterations of a chi-square test procedure in which 1,000 samples were
+drawn from the random number generator. For each iteration, we placed each
+sample into one of 100 bins, forming a histogram. We then computed the
+chi-square statistic, namely:
+
+\begin{equation}
+{\chi}^2=\sum_{i=1}^{n} \frac{(O_i - E_i)^2}{E_i}
+\end{equation}
+
+where ${\chi}^2$ is the chi-squared statistic, which asympotically approaches
+a ${\chi}^2$ distribution, $O_i$ is the count of observations of type $i$,
+and $E_i$ is the expected count of observations of type $i$. We determined the
+chi-square critical value for 99 degrees of freedom and a $p$-value of 0.05 to be
+123.225. Experimentally, our generator failed to pass the chi-square test 4.95\%
+of the time over 100,000 iterations, allowing us to not reject the null
+hypothesis that our random number generator produces uniformly distributed
+random numbers with 95\% certainty.
 
 \subsection{Assumptions and Simplifications}
 We make a number of assumptions and simplifications in constructing our

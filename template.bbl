@@ -70,6 +70,16 @@ Shigeyuki Okazaki and Satoshi Matsushita.
 \newblock In {\em International Conference on Engineering for Crowd Safety},
   pages 271--280, 1993.
 
+\bibitem{park1988random}
+Stephen~K. Park and Keith~W. Miller.
+\newblock Random number generators: good ones are hard to find.
+\newblock {\em Communications of the ACM}, 31(10):1192--1201, 1988.
+
+\bibitem{payne1969coding}
+WH~Payne, John~R Rabung, and TP~Bogyo.
+\newblock Coding the lehmer pseudo-random number generator.
+\newblock {\em Communications of the ACM}, 12(2):85--86, 1969.
+
 \bibitem{weifeng2003simulation}
 Fang Weifeng, Yang Lizhong, and Fan Weicheng.
 \newblock Simulation of bi-direction pedestrian movement using a cellular
