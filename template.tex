@@ -197,18 +197,25 @@ The primary input to our simulation model is a stream of football game attendees
 (i.e., pedestrians) exiting Bobby Dodd Stadium following a home football game.
 For purposes of modeling this input stream, we assume pedestrian interarrival
 time at the stadium gate boundary is a homogeneous stochastic process that
-follows a Poisson distribution. If the average rate of people exiting the
-stadium is known, the Poisson distribution will give a probability distribution
-of when the next person will exit within a set interval of time, independent
-of the last person who exited the stadium. As pedestrians arrive at the gate
-boundary, they enter the SUI.
+follows a Poisson distribution. Empirically, we determined the mean number of
+pedestrians per second arriving at the exit boundary from a 15-foot-wide exit to
+a stadium to be 4.05. This value was then used as the basis for the
+lambda-parameter used for sampling of the Poisson distribution. This provides
+a stream of exiting pedestrians in which the number of pedestrians exiting at
+any given second is independent of the pedestrians exiting at the previous
+second. While this assumption is perhaps reasonable for a simple simulation, in
+reality there is likely some variation over time. We use a simple queue
+structure to model the entry of pedestrians into our simulation. As pedestrians
+arrive at the gate boundary and exit the stadium, they enter the SUI.
 
 In addition, we select each pedestrian's target destination and walking
-speed at random. For selecting a target destination, we sample from
-an empirical distribution. For determining a walking speed for each pedestrian,
-we sample from a distribution previously referenced in the literature by Blue
-and Adler \cite{blue2001cellular} (5\% fast walkers (4 cells/time step), 90\%
-standard (3 cells/time step), 5\% slow (2 cells/time step)).
+speed at random. For selecting a target destination, we assume that pedestrian
+destinations are uniformly distributed and sample from a pool of exit nodes
+from the SUI that correspond to parking lots, local housing, and public
+transportation. For determining a walking speed for each pedestrian, we sample
+from a distribution previously referenced in the literature by Blue and Adler
+\cite{blue2001cellular} (5\% fast walkers (4 cells/time step), 90\% standard
+(3 cells/time step), 5\% slow (2 cells/time step)).
 
 Pedestrians in our model can be considered a consumer entity class
 \textit{Pedestrian} with attributes which will be set and updated during the
