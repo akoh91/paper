@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  29 FEB 2016 19:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  29 FEB 2016 19:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -544,14 +544,14 @@ been already used, duplicate ignored
                    \relax 
 l.50 \newpage
               [1]
-<stadium_diagram_updated.png, id=114, 522.95375pt x 436.63126pt>
+<stadium_diagram_updated.png, id=119, 522.95375pt x 436.63126pt>
 File: stadium_diagram_updated.png Graphic file (type png)
 
 <use stadium_diagram_updated.png>
 Package pdftex.def Info: stadium_diagram_updated.png used on input line 63.
 (pdftex.def)             Requested size: 390.0pt x 325.62714pt.
  [2 <./stadium_diagram_updated.png>]
-<cropped_map.png, id=124, 779.91376pt x 558.58687pt>
+<cropped_map.png, id=129, 779.91376pt x 558.58687pt>
 File: cropped_map.png Graphic file (type png)
  <use cropped_map.png>
 Package pdftex.def Info: cropped_map.png used on input line 81.
@@ -579,32 +579,32 @@ Overfull \hbox (24.0pt too wide) in paragraph at lines 677--701
  []
 
 [16] [17] [18]
-Overfull \hbox (24.0pt too wide) in paragraph at lines 724--741
+Overfull \hbox (24.0pt too wide) in paragraph at lines 720--737
  [][] 
  []
 
 [19] [20] (./template.bbl [21
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 758.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 756.
  [22]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 758.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 756.
  (./template.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 758.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 758.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 756.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 756.
 Package rerunfilecheck Info: File `template.out' has not changed.
-(rerunfilecheck)             Checksum: 5A6BD83479A339FF79FBECB580F3307A;1219.
+(rerunfilecheck)             Checksum: DBAB4BC50BF0F5A424878D4658B13BF6;1265.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 758.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 756.
  ) 
 Here is how much of TeX's memory you used:
- 7668 strings out of 493089
- 108505 string characters out of 6134842
+ 7670 strings out of 493089
+ 108525 string characters out of 6134842
  234730 words of memory out of 5000000
- 10967 multiletter control sequences out of 15000+600000
+ 10968 multiletter control sequences out of 15000+600000
  15533 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  29i,10n,40p,234b,1846s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -625,10 +625,10 @@ e/2015/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/
 /texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2015/t
 exmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></usr/local/texlive/2015/tex
 mf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on template.pdf (23 pages, 645601 bytes).
+Output written on template.pdf (23 pages, 645947 bytes).
 PDF statistics:
- 399 PDF objects out of 1000 (max. 8388607)
- 350 compressed objects within 4 object streams
- 102 named destinations out of 1000 (max. 500000)
- 163 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 405 PDF objects out of 1000 (max. 8388607)
+ 356 compressed objects within 4 object streams
+ 103 named destinations out of 1000 (max. 500000)
+ 171 words of extra memory for PDF output out of 10000 (max. 10000000)
 
