@@ -68,9 +68,8 @@ seating capacity of 55,000 individuals.
 Our primary objective in this study is to minimize the pedestrian evacuation
 time of the stadium and its surrounding area as attendees leave the area
 following a home football game. We do this by taking a parametric approach, in
-which we explore the effects of road closures, strategically placed guidance
-symbols (i.e., signs), and the ``takeover'' of certain intersections by law
-enforcement in promoting an optimal result.
+which we explore the effects of road closures and the ``takeover'' of certain
+intersections by law enforcement in promoting an optimal result.
 
 For purposes of this study, we define the system under investigation (SUI) as a
 rectangular polygon (Fig. \ref{fig:polygon}) surrounding the stadium. To be
@@ -203,10 +202,11 @@ a stadium to be 4.05. This value was then used as the basis for the
 lambda-parameter used for sampling of the Poisson distribution. This provides
 a stream of exiting pedestrians in which the number of pedestrians exiting at
 any given second is independent of the pedestrians exiting at the previous
-second. While this assumption is perhaps reasonable for a simple simulation, in
-reality there is likely some variation over time. We use a simple queue
-structure to model the entry of pedestrians into our simulation. As pedestrians
-arrive at the gate boundary and exit the stadium, they enter the SUI.
+second. While this assumption is reasonable for an initial simulation model, it
+should be noted that in reality there is likely some variation over time. We use
+a simple queue structure to model the entry of pedestrians into our simulation.
+As pedestrians arrive at the gate boundary and exit the stadium, they enter the
+SUI.
 
 In addition, we select each pedestrian's target destination and walking
 speed at random. For selecting a target destination, we assume that pedestrian
@@ -241,6 +241,8 @@ attributes of the \textit{Pedestrian} class.
                       time step. \\
      EgressComplete & A boolean value. This value is false when the pedestrian
                       has not yet egressed, and true when egress is complete. \\
+     ShortestPath & List of node ids, corresponding to the shortest path to the
+                    pedestrian's destination. \\
      \hline
     \end{tabular}
     \caption{Attributes of the \textit{Pedestrian} entity class.}
@@ -272,23 +274,20 @@ give the the minimum value of $E_{avg}$.
 \subsection{Content}
 
 \subsubsection{Approach}
-Pedestrians exit the stadium from one of four potential exits. To build the
+Pedestrians exit the stadium from one of five potential exits. To build the
 simulation space, we overlay a 2-dimensional cellular automata grid on a map of
-the SUI. We model this space as a weighted graph, a type of graph in which each
-graph edge is assigned a weight corresponding to the spatial distance between
-the two nodes \cite{west2001introduction}. Note that in this
-section, the terms ``cell'' and ``node'' are used interchangeably.
+the SUI. We do this by modeling the SUI as an undirected weighted graph. In our
+case, the edge weights correspond to the spatial distance between two nodes
+\cite{west2001introduction}. Note that in this section, the terms ``cell'' and
+``node'' are used interchangeably.
 
 As pedestrians exit the stadium (and thus enter the SUI), they are
-probabilistically assigned one of the graph’s destination nodes.  When a
-pedestrian reaches a destination node, that constitutes them exiting the SUI.
-Destination nodes are chosen based on their spatial meaning when overlaid on a
-map of the SUI, and constitute one of three possible classes: on-campus housing
-(dormitories), parking lots, or the North Avenue Metropolitan Atlanta Rapid
-Transit Authority (MARTA) station.
-
-Each node in the graph is a member of a \textit{Node} class, which
-has attributes as shown in Table \ref{table:node}.
+probabilistically assigned one of the graph’s destination nodes according to a
+uniform distribution. When a pedestrian reaches a destination node, that
+constitutes exiting the SUI. Destination nodes were determined based on their
+spatial meaning when overlaid on a map of the SUI, and constitute one of three
+possible classes: on-campus housing (dormitories), parking lots, or the North
+Avenue Metropolitan Atlanta Rapid Transit Authority (MARTA) station.
 
 \def\arraystretch{1.5}
 \begin{table}[hb!]
@@ -303,8 +302,7 @@ has attributes as shown in Table \ref{table:node}.
                    (Note: for purposes of this simulation, the y-axis is
                     inverted.) \\
      Paths       & A dictionary (hash map) relating each possible destination
-                   to the NodeID of the next node in the shortest path as
-                   determined by Dijkstra's algorithm. \\
+                   to the shortest path as determined by Dijkstra's algorithm.\\
      Neighbors & Array of \textit{Node} objects corresponding to nodes that are
                  one edge away from the node. \\
      Available	& Boolean value indicating whether the node is available for a
@@ -312,23 +310,30 @@ has attributes as shown in Table \ref{table:node}.
      NodeType   & Enumeration of the type of node, corresponding to its
                   spatial significance. The NodeType can be one of four
                   possibilities: sidewalk, road, SUI entrance, or SUI exit. \\
+     CurrentPed & Pedestrian currently occupying the node, if any. \\
      \hline
     \end{tabular}
     \caption{Attributes of the \textit{Node} class.}
   \label{table:node}
 \end{table}
 
-As part of the simulation initialization, the node and edge information is
-populated. For each node in the graph, we pre-compute the least-cost path to
-every possible destination node $N_d$. In general, we can compute the shortest
-path between any given node $N_i$ and destination node $N_d$ using Dijkstra's
-well-known algorithm \cite{dijkstra1959note}. In our simulation, we use a
-publicly available Python implementation of Dijkstra's algorithm
-\cite{eppstein-dijkstra}. A hash map \textit{Paths} attribute of each node
-stores the next node in the least-cost path to each destination.
+Each node in the graph is a member of a \textit{Node} class, which
+has attributes as shown in Table \ref{table:node}. As part of the simulation
+initialization, the node and edge information is
+populated. We define a few key types of nodes, such as entrance, exit, and
+sidewalk nodes. For each entrance node in the graph, we precompute the
+least-cost path to every every possible destination node $N_d$. In general,
+we can compute the shortest path between any given node $N_i$ and destination
+node $N_d$ using Dijkstra's well-known algorithm \cite{dijkstra1959note}. In our
+simulation, we use a publicly available Python implementation of Dijkstra's
+algorithm \cite{eppstein-dijkstra}. As pedestrians are initialized and added to
+the simulation, they are randomly assigned an entrance node according to a
+uniform distribution. The pedestrian then ``looks up'' the appropriate path
+to the assigned destination. This path is stored as a list structure on the
+pedestrian called \textit{ShortestPath}.
 
-At each time step, a pedestrian occupying a given node $N_i$ uses the
-\textit{Paths} attribute to identify the next desired cell to walk towards given
+At each time step, a pedestrian pops an element from its \textit{ShortestPath}
+attribute to identify the next desired cell to walk towards given
 their destination node $N_d$. This drives the pedestrian’s instinct to move
 toward their destination, based strictly on the shortest distance walk from
 their current position to $N_d$.
@@ -344,10 +349,10 @@ The chosen implementation of the dynamic floor field is to be determined.
 However, the static floor field will return the next node desired based on the
 shortest path; due to the 8-connected nature of the nodes this corresponds
 to a specific direction of travel spatially (for example, North or North East).
-Thus, it is reasonable to also consider directions adjacent to the “shortest
-path” direction when deciding a pedestrian’s next move (for example, a “shortest
-path” direction of East would yield adjacent directions of North East and
-South East).
+Thus, it is reasonable to also consider directions adjacent to the ``shortest
+path'' direction when deciding a pedestrian’s next move (for example, a
+``shortest path'' direction of East would yield adjacent directions of North
+East and South East).
 
 It will likely occur that more than one pedestrian will decide to pursue the
 same node in a given time step. In such cases, a probabilistic approach is taken
@@ -364,16 +369,17 @@ node.
 To optimize the egress of everyone exiting the stadium in our SUI, there are
 several parameters that can be altered. The first parameter is closing certain
 streets or intersections meant for vehicular traffic and making them for use by
-pedestrians only (i.e.,
-roads become sidewalks). The second is having traffic police take over certain
-intersections to control the pedestrian flow (i.e., overrule traffic lights).
-The third is placing signs along the sidewalk to direct pedestrians to walk a
-certain direction to their destination. The optimal time for everyone to exit
-the stadium and the SUI could be a combination of the three parameters.
-For example, directing pedestrian traffic to an intersection that is closed to
-all vehicles or controlled by a police officer is a combination that is likely
-to produce better results than only directing pedestrians to a regular
-crosswalk.
+pedestrians only (i.e., roads become sidewalks). The second is having traffic
+police take over certain intersections to control the pedestrian flow (i.e.,
+overrule traffic lights). The third is placing signs along the sidewalk to
+direct pedestrians to walk a certain direction to their destination. The optimal
+time for everyone to exit the stadium and the SUI could be a combination of the
+three parameters. For example, directing pedestrian traffic to an intersection
+that is closed to all vehicles or controlled by a police officer is a
+combination that is likely to produce better results than only directing
+pedestrians to a regular crosswalk. In this initial simulation, we choose to
+model only the first two listed parameters. In later work, the third could
+certainly be added to enhance the robustness of the model.
 
 To simulate these parameters, in addition to a \textit{Node} class, there is
 also an \textit{Intersection} class, which has attributes as shown in Table
@@ -708,10 +714,6 @@ closed to additional pedestrian traffic. Pedestrians currently in the
 intersection as it closes are able to exit the intersection and continue
 walking, but no new pedestrian traffic is allowed into the intersection.
 
-In our initial simulation model, we have not yet explored the effects of
-the intersections, but nevertheless present code for our intersection
-abstraction in \textit{intersection.py}.
-
 \def\arraystretch{1.5}
 \begin{table}
   \centering
@@ -735,6 +737,10 @@ abstraction in \textit{intersection.py}.
     \caption{Methods of the \textit{Intersection} class.}
     \label{table:intersection_methods}
 \end{table}
+
+\section{Results}
+
+\section{Conclusion}
 
 \section{Final Notes}
 It should be noted that all of the authors contributed equally to this work.
