@@ -1,0 +1,95 @@
+
+To run our simulation, first ensure Python 2.7 is installed on the testing
+machine. Python's matplotlib module will also need to be installed for
+visualization purposes. If visualization is not needed, it can be turned
+off by setting the \textit{Visualization} option to False in the driver program,
+\textit{sim\_batch.py}.
+
+Python's numPy module will also be necessary for random number generation.  In addition, a configuration JSON file must be provided to configure the intersections.  A sample configuration JSON file is shown below.
+
+\begin{lstlisting}[style=Python]
+{
+	"name": "config2",
+	"num_sims": "20",
+	"parameters": [
+		{
+			"name": "Parameter 1 - closed intersections",
+			"type": "intersection_closed",
+			"data": {
+				"intersections": [
+					"3",
+					"9"
+				]
+			}
+		},
+		{
+			"name": "Parameter 2 - open intersections",
+			"type": "intersection_open",
+			"data": {
+				"intersections": [
+					"2"
+				]
+			}
+		},
+		{
+			"name": "Parameter 3 - normal intersections",
+			"type": "intersection_normal",
+			"data": {
+				"intersections": [
+					{
+						"id": "1",
+						"time": "15"
+					},
+					{
+						"id": "4",
+						"time": "30"
+					},
+					{
+						"id": "5",
+						"time": "25"
+					},
+					{
+						"id": "6",
+						"time": "20"
+					},
+					{
+						"id": "7",
+						"time": "15"
+					},
+					{
+						"id": "8",
+						"time": "15"
+					},
+					{
+						"id": "10",
+						"time": "15"
+					},
+					{
+						"id": "11",
+						"time": "40"
+					},
+					{
+						"id": "12",
+						"time": "25"
+					}
+				]
+			}
+		}
+	]
+}
+\end{lstlisting}
+
+Once Python, matplotlib, and numPy are installed and a configuration JSON file is created, you can simply enter the
+\textit{code} subdirectory and run the following at a Unix command prompt:
+
+\begin{lstlisting}[style=Python]
+  $ python sim_batch.py -c <configJsonFile> -p <int numPeds> -v <t/f vizBoolean>
+\end{lstlisting}
+
+The configJsonFile is the location of your configuration Json file, numPeds is an integer defining the number of pedestrians to simulate, and vizBoolean is 't' or 'f' stating whether or not visualization should be turned on or off, respectively.
+
+The output will initially state that a preprocessing step is being performed
+to prepare the simulation. Then, the actual simulation will automatically begin.
+Pedestrians will be created and will begin moving toward their destinations. As
+they do, the number of ``active pedestrians'' remaining in the SUI will be
+displayed at every time step.

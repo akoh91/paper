@@ -4,6 +4,8 @@
 \usepackage{cite}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{multirow}
+\usepackage[table,xcdraw]{xcolor}
 \usepackage[colorlinks]{hyperref}
 \hypersetup{
   colorlinks = true,
@@ -365,17 +367,11 @@ $Ped_A$ does not move at all.
 \subsubsection{Parameters}
 
 To optimize the egress of everyone exiting the stadium in our SUI, there are
-several parameters that can be altered. The first parameter is closing certain
+several parameters that can be altered. The first parameter is opening certain
 streets or intersections meant for vehicular traffic and making them for use by
-pedestrians only (i.e., roads become sidewalks). The second is having traffic
-police take over certain intersections to control the pedestrian flow such that
-pedestrians and vehicles take turns using the intersections (i.e.,
-overrule traffic lights). The third is placing signs along the sidewalk to
-direct pedestrians to walk a certain direction to their destination (i.e.,
-pedestrians do not use the intersection at all). The optimal time for everyone
+pedestrians only (i.e., roads become sidewalks). The second is closing certain streets or intersections and making them for use by vehicles only (i.e. intersections become roads). The optimal time for everyone
 to exit the stadium and the SUI could be a combination of the
-three parameters. For example, directing pedestrian traffic to an intersection
-that is closed to all vehicles may be a combination that produces better
+two parameters. For example, opening an intersection to pedestrians only and closing a nearby small intersection may be a combination that produces better
 results than only directing pedestrians to a regular crosswalk.
 
 To simulate these parameters, in addition to a \textit{Node} class, there is
@@ -408,16 +404,35 @@ road is closed and vehicles are passing, then no nodes in the intersection
 will be available for pedestrians.
 
 One parameter in the simulation that can be modified is determining which
-intersections will be completely closed to vehicles and always available for
-pedestrian use. To model this case, all nodes in that intersection will behave
+intersections will always be open to pedestrian use (closed to vehicles). To model this case, all nodes in that intersection will behave
 in the same way as the nodes that make up the sidewalk. There will be no need to
 create an intersection object for that intersection. On the other hand, if there
 is an intersection that is closed off for pedestrians and only available for
 vehicular traffic, then the initial creation of nodes will not include that
 intersection - there will be no nodes at that intersection as no pedestrian can
 ever occupy those nodes.
+For normal intersections, an intersection object is created and a time is assigned to the intersection which defines the number of simulation timesteps before changing the state of the intersection (open or closed).  Figure \ref{fig:intersectionMap} displays the intersections and their corresponding IDs.  Table \ref{table:intersectionTimes} defines the open/close timesteps for each intersection.  These times were selected based on the size of the intersections and the importance of the roads associated with those intersections.
 
-If there are pedestrians that need to cross an intersection, but the
+\begin{figure}[H]
+	\includegraphics[width=\linewidth,natwidth=1026,natheight=750]{GATechMap_IntersectionIDs.png}
+	\caption{SUI Intersection IDs.}
+	\label{fig:intersectionMap}
+\end{figure}
+
+\begin{table}[]
+	\centering
+	\resizebox{\columnwidth}{!}{%
+	\begin{tabular}{r|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\cline{2-13}
+		Intersection IDs & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} \\ \cline{2-13} 
+		Timesteps        & 15         & 20         & 25         & 30         & 25         & 20         & 15         & 15         & 20         & 15          & 40          & 25          \\ \cline{2-13} 
+	\end{tabular}%
+}
+	\caption{Intersection Open/Close Timesteps}
+	\label{table:intersectionTimes}
+\end{table}
+
+If there are pedestrians that need to cross a normal intersection, but the
 intersection is closed, then the pedestrians will not be able to advance to
 their next node. This will cause a list of pedestrians to stay in their
 current node until the crosswalk opens up (i.e., implicitly form a queue).
@@ -711,9 +726,8 @@ parametrically closed and opened. Thus, we define key methods for the
 Intersections are used to limit the rate of flow of pedestrians through the SUI,
 increasing the reality of the simulation. As an intersection contains one or
 more nodes, when an intersection is closed, all the nodes within it are
-closed to additional pedestrian traffic. Pedestrians currently in the
-intersection as it closes are able to exit the intersection and continue
-walking, but no new pedestrian traffic is allowed into the intersection.
+closed to additional pedestrian traffic. This means no new pedestrian traffic is allowed into the intersection.  Pedestrians currently in the
+intersection as it closes will not be able to move if their next node is within the intersection.  Although keeping pedestrians trapped in the middle of the road is unrealistic, it simplifies the model and the effect on the simulation was decided to be negligible as the same 'delay' effect is still executed.
 
 \def\arraystretch{1.5}
 \begin{table}
@@ -741,24 +755,40 @@ walking, but no new pedestrian traffic is allowed into the intersection.
 
 \section{Results}
 As mentioned earlier, several intersections were identified in the SUI.  These
-intersections are shown in Fig. \ref{fig:intersections}.
-
-\begin{figure}[H]
-  \includegraphics[width=\linewidth,natwidth=1287,natheight=943]{GATechMap_IntersectionIDs.png}
-  \caption{SUI Intersections.}
-  \label{fig:intersections}
-\end{figure}
+intersections are shown in Fig. \ref{fig:intersectionMap}.
 
 Ten distinct combinations of intersection states were created with the purpose
 of evaluating the time it takes for pedestrians to evacuate the SUI under each
-combination; this is shown in (XXXX REFERENCE TABLE HERE).  Green cells indicate
-an intersection closed to vehicular traffic (i.e., it is effectively a sidewalk),
+combination; this is shown in Table \ref{table:configs}.  Green cells indicate
+an intersection open exclusively for pedestrians and closed to vehicular traffic (i.e., it is effectively a sidewalk),
 yellow cells indicate an intersection with alternating vehicular and pedestrian
-traffic (i.e., a law enforcement officer directing traffic), and red cells indicate
+traffic (i.e., a law enforcement officer directing traffic or a normal crosswalk), and red cells indicate
 an intersection closed to all pedestrian traffic (i.e., nodes are removed from
 the map).
 
-(ADD TABLE OF INTERSECTION CONFIGURATIONS HERE)
+\begin{table}[]
+	\centering
+	\resizebox{\columnwidth}{!}{%
+		\begin{tabular}{clllllllllll}
+			\multicolumn{1}{l}{}                                    &                                  & \multicolumn{10}{c}{Configuration \#}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     \\ \cline{3-12} 
+			\multicolumn{1}{l}{}                                    & \multicolumn{1}{l|}{}            & \multicolumn{1}{l|}{\textbf{1}}                     & \multicolumn{1}{l|}{\textbf{2}}                     & \multicolumn{1}{l|}{\textbf{3}}                     & \multicolumn{1}{l|}{\textbf{4}}                     & \multicolumn{1}{l|}{\textbf{5}}                     & \multicolumn{1}{l|}{\textbf{6}}                     & \multicolumn{1}{l|}{\textbf{7}}                     & \multicolumn{1}{l|}{\textbf{8}}                     & \multicolumn{1}{l|}{\textbf{9}}                     & \multicolumn{1}{l|}{\textbf{10}}                    \\ \cline{2-12} 
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{1}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   \\ \cline{2-12} 
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{2}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12} 
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{3}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} \\ \cline{2-12} 
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{4}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12} 
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{5}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   \\ \cline{2-12} 
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{6}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   \\ \cline{2-12} 
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{7}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12} 
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{8}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12} 
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{9}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12} 
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{10}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12} 
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{11}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12} 
+			\multicolumn{1}{c|}{\multirow{-12}{*}{\rotatebox{90}{Intersection ID}}} & \multicolumn{1}{l|}{\textbf{12}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12} 
+		\end{tabular}%
+	}
+	\caption{Intersection Configurations}
+	\label{table:configs}
+\end{table}
 
 To achieve statistical significance, 20 runs were performed per intersection
 configuration.  As stated earlier, 90\% confidence intervals were constructed
