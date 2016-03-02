@@ -5,7 +5,10 @@ visualization purposes. If visualization is not needed, it can be turned
 off by setting the \textit{Visualization} option to False in the driver program,
 \textit{sim\_batch.py}.
 
-Python's numPy module will also be necessary for random number generation.  In addition, a configuration JSON file must be provided to configure the intersections.  A sample configuration JSON file is shown below.
+Python's numPy module will also be necessary for random number sampling from
+the Poisson distribution. In addition, a configuration JSON file must be
+provided to configure the intersections. A sample configuration JSON file is
+shown below.
 
 \begin{lstlisting}[style=Python]
 {

@@ -80,6 +80,11 @@ WH~Payne, John~R Rabung, and TP~Bogyo.
 \newblock Coding the lehmer pseudo-random number generator.
 \newblock {\em Communications of the ACM}, 12(2):85--86, 1969.
 
+\bibitem{youtubestadium}
+PhysicsWorld.
+\newblock Pedestrian-dynamics experiment: stadium evacuation.
+\newblock \url{https://www.youtube.com/watch?v=4AZQ4lFLcb4}, 2010.
+
 \bibitem{weifeng2003simulation}
 Fang Weifeng, Yang Lizhong, and Fan Weicheng.
 \newblock Simulation of bi-direction pedestrian movement using a cellular

@@ -80,13 +80,13 @@ stadium. As pedestrians exit the stadium, they enter the SUI, and as they cross
 the boundary of the polygon, they exit it.
 
 \begin{figure}[H]
-  \includegraphics[width=\linewidth,natwidth=1026,natheight=750]{GATechMap_20160301.png}
+  \includegraphics[width=\linewidth,natwidth=1036,natheight=742]{cropped_map.png}
   \caption{The system under investigation.}
   \label{fig:polygon}
 \end{figure}
 
-The stadium has 11 ``exit zones,'' modeled which serve as ingress (pre-game) and egress
-(post-game) sites. These serve as the entry points to our simulation. As
+The stadium has 11 ``exit zones'' modeled that serve as ingress (pre-game) and
+egress (post-game) sites. These serve as the entry points to our simulation. As
 pedestrians enter the SUI, they are assigned a destination and then proceed
 to their destination by way of pedestrian walking paths (i.e., sidewalks).
 
@@ -153,7 +153,7 @@ There are several takeaways from the literature described above that have
 potential applicability to the model at hand. First, on the topic of modeling
 pedestrian walkways, several papers focused on either a single passageway,
 enclosed areas with obstacles (walls, pillars, etc.), or evacuation from a
-room with a single doorway. However, modeling walkways as a undirected graph
+room with a single doorway. However, modeling walkways as an undirected graph
 \cite{fang2011hierarchical} seems feasible given the problem at hand, where
 there are multiple pathways one can take to get to a single destination. In
 papers where cellular automata was utilized, the median size of each cell on the
@@ -203,15 +203,16 @@ For purposes of modeling this input stream, we assume pedestrian interarrival
 time at the stadium gate boundary is a homogeneous stochastic process that
 follows a Poisson distribution. Empirically, we determined the mean number of
 pedestrians per second arriving at the exit boundary from a 5-meter-wide exit to
-a stadium to be 4.05. This value was then used as the basis for the
-lambda-parameter used for sampling of the Poisson distribution. This provides
-a stream of exiting pedestrians in which the number of pedestrians exiting at
-any given second is independent of the pedestrians exiting at the previous
-second. While this assumption is reasonable for an initial simulation model, it
-should be noted that in reality there is likely some variation over time. We use
-a simple queue structure to model the entry of pedestrians into our simulation.
-As pedestrians arrive at the gate boundary and exit the stadium, they enter the
-SUI.
+a stadium to be 4.05. This was determined by observing the number of pedestrians
+exiting a stadium on video \cite{youtubestadium}. This value was then used as
+the basis for the lambda-parameter used for sampling of the Poisson
+distribution. This provides a stream of exiting pedestrians in which the number
+of pedestrians exiting at any given second is independent of the pedestrians
+exiting at the previous second. While this assumption is reasonable for an
+initial simulation model, it should be noted that in reality there is likely
+some variation over time. We use a simple queue structure to model the entry of
+pedestrians into our simulation. As pedestrians arrive at the gate boundary and
+exit the stadium, they enter the SUI.
 
 In addition, we select each pedestrian's target destination and walking
 speed at random. For selecting a target destination, we assume that pedestrian
@@ -288,7 +289,7 @@ the SUI as an undirected weighted graph. In our case, the edge weights correspon
 to the spatial distance between two nodes \cite{west2001introduction}. Note
 that in this section, the terms ``cell'' and ``node'' are used interchangeably.
 
-\begin{figure}[H]
+\begin{figure}[t]
   \includegraphics[width=\linewidth,natwidth=1026,natheight=750]{GATechMap_20160301_EntranceExits.png}
   \caption{SUI Entrances and Exits.}
   \label{fig:mapentranceexits}
@@ -315,15 +316,19 @@ Rapid Transit Authority (MARTA) station.
      YCoordinate & Y-coordinate of the node on the 2-dimensional grid.
                    (Note: for purposes of this simulation, the y-axis is
                     inverted.) \\
+     PixelX      & X-coordinate of the node in 2-dimensional pixel space, for
+                   plotting on top of a map of the SUI. \\
+     PixelY      & Y-coordinate of the node in 2-dimensional pixel space, for
+                   plotting on top of a map of the SUI. \\
      Paths       & A dictionary (hash map) relating each possible destination
                    to the shortest path as determined by Dijkstra's algorithm.\\
-     Neighbors & Array of \textit{Node} objects corresponding to nodes that are
-                 one edge away from the node. \\
-     Available	& Boolean value indicating whether the node is available for a
-                  pedestrian (true) or not available (false). \\
-     NodeType   & Enumeration of the type of node, corresponding to its
-                  spatial significance. The NodeType can be one of four
-                  possibilities: sidewalk, road, SUI entrance, or SUI exit. \\
+     Neighbors   & Array of \textit{Node} objects corresponding to nodes that are
+                   one edge away from the node. \\
+     Available	 & Boolean value indicating whether the node is available for a
+                   pedestrian (true) or not available (false). \\
+     NodeType    & Enumeration of the type of node, corresponding to its
+                   spatial significance. The NodeType can be one of four
+                   possibilities: sidewalk, road, SUI entrance, or SUI exit. \\
      CurrentPed & Pedestrian currently occupying the node, if any. \\
      \hline
     \end{tabular}
@@ -334,28 +339,30 @@ Rapid Transit Authority (MARTA) station.
 Each node in the graph is a member of a \textit{Node} class, which
 has attributes as shown in Table \ref{table:node}. As part of the simulation
 initialization, the node and edge information is
-populated. We define a few key types of nodes, such as entrance, exit, and
-sidewalk nodes. For each entrance node in the graph, we precompute the
-least-cost path to every every possible destination node $N_d$. In general,
+populated. We define a few key types of nodes, such as entrance, exit (or
+destination), and sidewalk nodes. For each entrance node $N_e$ in the graph, we
+precompute the least-cost path to every every possible destination node $N_d$.
+In general,
 we can compute the shortest path between any given node $N_i$ and destination
 node $N_d$ using Dijkstra's well-known algorithm \cite{dijkstra1959note}. In our
 simulation, we use a publicly available Python implementation of Dijkstra's
 algorithm \cite{eppstein-dijkstra}. As pedestrians are initialized and added to
 the simulation, they are randomly assigned an entrance node according to a
 uniform distribution. The pedestrian then ``looks up'' the appropriate path
-to the assigned destination. This path is stored as a list structure on the
+to the assigned destination. This path is then stored as a list structure on the
 pedestrian called \textit{ShortestPath}.
 
-At each time step, a pedestrian pops an element from its \textit{ShortestPath}
-attribute to identify the next desired cell to walk towards given
-their destination node $N_d$. This drives the pedestrian's instinct to move
-toward their destination, based strictly on the shortest distance walk from
-their current position to $N_d$.
+At each time step, the simulation pops an element (which corresponds to a node)
+from each active pedestrian's \textit{ShortestPath} attribute, and then attempts
+to move the pedestrian to the given node. This repeated process drives the
+pedestrian's instinct to move toward their destination, based strictly on the
+shortest distance walk from their current position to their destination node.
 
-It will likely occur that more than a pedestrian $Ped_A$ will decide to pursue
+It will likely occur that more than one pedestrian $Ped_A$ will decide to pursue
 a node $N_B$ that is already occupied by a pedestrian $Ped_B$. In such cases, a
 check is first performed to see if $Ped_B$ is attempting to move to the location
-occupied by $Ped_A$; if so, the \textit{place exchange} logic \cite{blue2001cellular}
+occupied by $Ped_A$; if so, the \textit{place exchange} logic
+\cite{blue2001cellular}
 is activated, and the pedestrians trade places. However, supposing the
 \textit{place exchange} logic is not triggered, then an empty neighbor $N_E$ of
 $Ped_A$ is chosen as the next node to move to instead. $Ped_A$ moves to $N_E$ and
@@ -366,13 +373,17 @@ $Ped_A$ does not move at all.
 
 \subsubsection{Parameters}
 
-To optimize the egress of everyone exiting the stadium in our SUI, there are
+To optimize the egress of pedestrians from the SUI, there are
 several parameters that can be altered. The first parameter is opening certain
 streets or intersections meant for vehicular traffic and making them for use by
-pedestrians only (i.e., roads become sidewalks). The second is closing certain streets or intersections and making them for use by vehicles only (i.e. intersections become roads). The optimal time for everyone
-to exit the stadium and the SUI could be a combination of the
-two parameters. For example, opening an intersection to pedestrians only and closing a nearby small intersection may be a combination that produces better
-results than only directing pedestrians to a regular crosswalk.
+pedestrians only (i.e., roads become sidewalks). The second is closing certain
+streets or intersections and making them for use by vehicles only (i.e.
+intersections become roads). The optimal time for all pedestrians to evacuate
+the SUI could be a combination of the two parameters. For example, opening an
+intersection to pedestrians only and closing a nearby small intersection may to
+pedestrian traffic (i.e., opening it to vehicular traffic only) may be a
+combination that produces better results than only directing pedestrians to a
+regular crosswalk. We explore these types of permutations in our results.
 
 To simulate these parameters, in addition to a \textit{Node} class, there is
 also an \textit{Intersection} class, which has attributes as shown in Table
@@ -404,14 +415,22 @@ road is closed and vehicles are passing, then no nodes in the intersection
 will be available for pedestrians.
 
 One parameter in the simulation that can be modified is determining which
-intersections will always be open to pedestrian use (closed to vehicles). To model this case, all nodes in that intersection will behave
+intersections will always be open to pedestrian use (i.e., closed to vehicles).
+To model this case, all nodes in that intersection will behave
 in the same way as the nodes that make up the sidewalk. There will be no need to
 create an intersection object for that intersection. On the other hand, if there
 is an intersection that is closed off for pedestrians and only available for
 vehicular traffic, then the initial creation of nodes will not include that
 intersection - there will be no nodes at that intersection as no pedestrian can
 ever occupy those nodes.
-For normal intersections, an intersection object is created and a time is assigned to the intersection which defines the number of simulation timesteps before changing the state of the intersection (open or closed).  Figure \ref{fig:intersectionMap} displays the intersections and their corresponding IDs.  Table \ref{table:intersectionTimes} defines the open/close timesteps for each intersection.  These times were selected based on the size of the intersections and the importance of the roads associated with those intersections.
+For normal intersections, an intersection object is created and a time is
+assigned to the intersection which defines the number of simulation timesteps
+before changing the state of the intersection (open or closed). Fig.
+\ref{fig:intersectionMap} displays the intersections and their corresponding
+IDs. Table \ref{table:intersectionTimes} defines the open/close timesteps for
+each intersection. These times were selected based on the size of the
+intersections and the importance of the roads associated with those
+intersections.
 
 \begin{figure}[H]
 	\includegraphics[width=\linewidth,natwidth=1026,natheight=750]{GATechMap_IntersectionIDs.png}
@@ -419,13 +438,13 @@ For normal intersections, an intersection object is created and a time is assign
 	\label{fig:intersectionMap}
 \end{figure}
 
-\begin{table}[]
+\begin{table}[t]
 	\centering
 	\resizebox{\columnwidth}{!}{%
 	\begin{tabular}{r|c|c|c|c|c|c|c|c|c|c|c|c|}
 		\cline{2-13}
-		Intersection IDs & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} \\ \cline{2-13} 
-		Timesteps        & 15         & 20         & 25         & 30         & 25         & 20         & 15         & 15         & 20         & 15          & 40          & 25          \\ \cline{2-13} 
+		Intersection ID & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} \\ \cline{2-13}
+		Timesteps        & 15         & 20         & 25         & 30         & 25         & 20         & 15         & 15         & 20         & 15          & 40          & 25          \\ \cline{2-13}
 	\end{tabular}%
 }
 	\caption{Intersection Open/Close Timesteps}
@@ -438,7 +457,7 @@ their next node. This will cause a list of pedestrians to stay in their
 current node until the crosswalk opens up (i.e., implicitly form a queue).
 Once that occurs, then the pedestrians can continue to their next nodes.
 
-\subsubsection{Random Numbers}
+\subsubsection{Random Numbers and Verification}
 To model the egress of the stadium, we take a stochastic (probabilistic)
 approach. In the context of a computer simulation, this necessitates the use of
 a pseudorandom number generator.
@@ -459,8 +478,8 @@ where ${\chi}^2$ is the chi-squared statistic, which asympotically approaches
 a ${\chi}^2$ distribution, $O_i$ is the count of observations of type $i$,
 and $E_i$ is the expected count of observations of type $i$. We determined the
 chi-square critical value for 99 degrees of freedom and a $p$-value of 0.05 to be
-123.225. Experimentally, our generator failed to pass the chi-square test 4.95\%
-of the time over 100,000 iterations, allowing us to not reject the null
+123.225. Experimentally, our generator failed to pass the chi-square test only
+4.95\% of the time over 100,000 iterations, allowing us to not reject the null
 hypothesis that our random number generator produces uniformly distributed
 random numbers with 95\% certainty.
 
@@ -531,35 +550,138 @@ attributes without the need to provide explicit method definitions in code.
 To run our simulation, first ensure Python 2.7 is installed on the testing
 machine. Python's matplotlib module will also need to be installed for
 visualization purposes. If visualization is not needed, it can be turned
-off by setting the \textit{Visualization} option to False in the driver program,
-\textit{driver.py}.
+off by setting the \textit{Visualization} option to False when initializing the
+simulation.
 
-If Python and the matplotlib module are installed, you can simply enter the
-\textit{code} subdirectory and run the following at a Unix command prompt:
+Python's NumPy module will also be necessary for random number sampling from
+the Poisson distribution. In addition, a configuration JSON file must be
+provided to configure the intersections. A sample configuration JSON file is
+shown below, and all the configuration files used for testing our simulation
+model are provided in the \textit{code/config} directory.
 
 \begin{lstlisting}
-  $ python driver.py
+{
+	"name": "config2",
+	"num_sims": "20",
+	"parameters": [
+		{
+			"name": "Parameter 1 - closed intersections",
+			"type": "intersection_closed",
+			"data": {
+				"intersections": [
+					"3",
+					"9"
+				]
+			}
+		},
+		{
+			"name": "Parameter 2 - open intersections",
+			"type": "intersection_open",
+			"data": {
+				"intersections": [
+					"2"
+				]
+			}
+		},
+		{
+			"name": "Parameter 3 - normal intersections",
+			"type": "intersection_normal",
+			"data": {
+				"intersections": [
+					{
+						"id": "1",
+						"time": "15"
+					},
+					{
+						"id": "4",
+						"time": "30"
+					},
+					{
+						"id": "5",
+						"time": "25"
+					},
+					{
+						"id": "6",
+						"time": "20"
+					},
+					{
+						"id": "7",
+						"time": "15"
+					},
+					{
+						"id": "8",
+						"time": "15"
+					},
+					{
+						"id": "10",
+						"time": "15"
+					},
+					{
+						"id": "11",
+						"time": "40"
+					},
+					{
+						"id": "12",
+						"time": "25"
+					}
+				]
+			}
+		}
+	]
+}
 \end{lstlisting}
+
+Within the configuration above, there is a \textit{name} field which
+specifies a label for the configuration, \textit{num\_sims} field which
+specifies the number of simulations that should be run, and \textit{parameters}
+array, which contains three types of parameters - \textit{intersection\_closed},
+\textit{intersection\_open}, and \textit{intersection\_normal}. For each of
+these, a list of intersection identifiers is given. These identifiers correspond
+to those in Fig. \ref{fig:intersectionMap}, and instruct the simulation on
+whether to close the intersections to pedestrians, open the intersections to
+pedestrians, or leave the intersection as normal - in other words, as changing
+between closed and open at some interval.
+
+For the \textit{intersection\_normal} case, instead of a simple list of
+intersection identifiers, a list of objects should be given as shown above, with
+a \textit{time} parameter specifying the number of timesteps each intersection
+should be closed.
+
+Once Python, matplotlib, and NumPy are installed and a configuration JSON file
+is selected, you can simply enter the \textit{code} subdirectory and run the
+following at a Unix command prompt to start an example batch of 20 simulation
+runs with 5,000 pedestrians:
+
+\begin{lstlisting}
+  $ python sim_batch.py -c config/config1.json -p 5000 -v t -f paths/config1.pickle
+\end{lstlisting}
+
+The more general form is as follows:
+\\
+\begin{lstlisting}
+  $ python sim_batch.py -c <configJsonFile> -p <int numPeds> -v <t/f vizBoolean> -f <pathsFile>
+\end{lstlisting}
+
+where configJsonFile is the location of your configuration JSON file, numPeds is
+an integer defining the number of pedestrians to simulate, vizBoolean is `t'
+or `f' stating whether or not visualization should be turned on or off,
+respectively, and pathsFile is the location of a \textit{pickle} file, which
+contains precomputed shortest path information.
 
 The output will initially state that a preprocessing step is being performed
 to prepare the simulation. Then, the actual simulation will automatically begin.
 Pedestrians will be created and will begin moving toward their destinations. As
-they do, the number of ``active pedestrians'' remaining in the SUI will be
-displayed at every time step.
+they do, the number of ``active pedestrians'' remaining in the SUI and the
+number of pedestrians remaining in the pedestrian queue (in other words, the
+input queue) will be displayed at every time step.
 
-To use our simulation in a less rote manner, we have provided a simple interface
-by which a user can easily use our software. First, the user creates a
-\textit{Grid} object, which is initialized from a maximum number of rows,
-maximum number of columns, node file, edge file, and type map giving
-translations between integer node types (such as SUI entrance, SUI exit,
-sidewalk, and road). An optional file in \textit{pickle} format can contain
-previously produced shortest path information.
-
-\begin{figure}[H]
-  \includegraphics[width=\linewidth,natwidth=603,natheight=625]{DataLayout.png}
-  \caption{Simulation Data Layout.}
-  \label{fig:datalayout}
-\end{figure}
+Behind the scenes, initializing a new simulation creates a
+\textit{Grid} object, which is initialized from a node file, edge file,
+type map giving translations between integer node types (such as SUI entrance,
+SUI exit, sidewalk, and road), and configuration file containing
+paramterizations. An optional file in \textit{pickle} format can
+contain previously computed shortest path information, as this is a fairly
+expensive step that need only occur when intersections are opened or closed.
 
 The node file should be in a CSV format, of the form:
 
@@ -595,39 +717,15 @@ A corresponding edge file might look as follows:
 \end{lstlisting}
 
 where $0$ refers to the node in the first line of the nodes file, and $1$ refers
-to the node in the second line.
-
-The type map should be a dictionary, with string keys that are human-readable
-descriptions of node types, and integer values that correspond to %node_type
-in the node file.
+to the node in the second line. The type map should be a dictionary, with
+string keys that are human-readable descriptions of node types, and integer
+values that correspond to node types in the node file.
 
 Once the grid is created, it is passed to the \textit{Simulation} constructor,
 along with a parameter dictionary with options such as the number of pedestrians
 that should be simulated, and whether the visualization engine will be enabled.
-
-A typical driver program might look as follows:
-
-\begin{lstlisting}
-# driver.py
-from grid import Grid
-from simulation import Simulation
-
-# Specify the max number of rows and columns in the grid.
-max_rows = 66
-max_cols = 139
-
-# Create a type map mapping human-readable node types to integer ids.
-type_map = { "sidewalk": 1, "crosswalk": 2, "entrance": 3, "exit": 4 }
-
-# Create a grid object that contains the underlying nodes and path information.
-grid = Grid(max_rows, max_cols, "vertices.csv", "edges.csv", type_map)
-
-# Set up a simulation object.
-simulation = Simulation(grid, {"num_pedestrians": 500, "visualization": True})
-
-# Run the simulation.
-simulation.run()
-\end{lstlisting}
+An overview of the key relationships between classes in our simulation is shown
+in Fig. \ref{fig:datalayout}.
 
 \subsubsection{Pedestrian Class Interfaces}
 For simulating pedestrian movement, we define a \textit{Pedestrian} class as
@@ -640,6 +738,12 @@ true, alerting the simulation that the pedestrian has finished the simulation.
 Once there are no pedestrians in the simulation remaining with the
 EgressComplete attribute set to false, the driver program breaks from the main
 simulation loop and the program exits.
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth,natwidth=603,natheight=625]{DataLayout.png}
+  \caption{Simulation Data Layout.}
+  \label{fig:datalayout}
+\end{figure}
 
 \def\arraystretch{1.5}
 \begin{table}
@@ -676,16 +780,11 @@ which are sidewalks and roads. Nodes have several key attributes defined that
 can be retrieved and set. Among them, the Neighbors attribute specifies all the
 nodes that are one degree away from the node object. The Neighbors attribute is
 then used to populate the Paths attribute for the node, which is a hash map
-that gives the next node in the shortest path to each possible destination node
-in the simulation. We precompute the Paths attribute for every node in the
-graph prior to beginning the simulation. This precomputation step needs only
-be repeated when a parameter change occurs that alters the underlying node
-structure or availability.
-
-The GetNextNode() method of the Node class provides the next node in the
-shortest path for a given destination. When a pedestrian lands on a given node,
-this method is utilized to then provide the pedestrian with his next location
-in the following time step.
+that gives the shortest path to each possible destination node
+in the simulation. We precompute the \textit{Paths} attribute for each entrance
+node in the graph prior to beginning the simulation. This precomputation step
+needs only be repeated when a parameter change occurs that alters the underlying
+node structure or availability.
 
 \def\arraystretch{1.5}
 \begin{table}
@@ -697,11 +796,6 @@ in the following time step.
      GetAvailable() \newline SetAvailable(Bool)  & Gets or sets the current
                         value of the \textit{Available} attribute for the node.
                         If the setter, must be a boolean true or false. \\
-     GetNextNode(DestinationNode) & Takes one argument: destination
-                                    \textit{Node} object. Returns the next
-                                    \textit{Node} object for the pedestrian to
-                                    advance to based on the pedestrian’s final
-                                    destination. \\
      GetPaths() \newline SetPaths(Paths) & Returns or sets the Paths attribute
                 of the node, which is a hash map that gives the next node in
                 the shortest path to each possible destination node in the
@@ -726,8 +820,12 @@ parametrically closed and opened. Thus, we define key methods for the
 Intersections are used to limit the rate of flow of pedestrians through the SUI,
 increasing the reality of the simulation. As an intersection contains one or
 more nodes, when an intersection is closed, all the nodes within it are
-closed to additional pedestrian traffic. This means no new pedestrian traffic is allowed into the intersection.  Pedestrians currently in the
-intersection as it closes will not be able to move if their next node is within the intersection.  Although keeping pedestrians trapped in the middle of the road is unrealistic, it simplifies the model and the effect on the simulation was decided to be negligible as the same 'delay' effect is still executed.
+closed to additional pedestrian traffic. This means no new pedestrian traffic is
+allowed into the intersection.  Pedestrians currently in the intersection as it
+closes will not be able to move if their next node is within the intersection.
+Although keeping pedestrians trapped in the middle of the road is unrealistic,
+it simplifies the model and the effect on the simulation was decided to be
+negligible as the same ``delay'' effect is still executed.
 
 \def\arraystretch{1.5}
 \begin{table}
@@ -770,20 +868,20 @@ the map).
 	\centering
 	\resizebox{\columnwidth}{!}{%
 		\begin{tabular}{clllllllllll}
-			\multicolumn{1}{l}{}                                    &                                  & \multicolumn{10}{c}{Configuration \#}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     \\ \cline{3-12} 
-			\multicolumn{1}{l}{}                                    & \multicolumn{1}{l|}{}            & \multicolumn{1}{l|}{\textbf{1}}                     & \multicolumn{1}{l|}{\textbf{2}}                     & \multicolumn{1}{l|}{\textbf{3}}                     & \multicolumn{1}{l|}{\textbf{4}}                     & \multicolumn{1}{l|}{\textbf{5}}                     & \multicolumn{1}{l|}{\textbf{6}}                     & \multicolumn{1}{l|}{\textbf{7}}                     & \multicolumn{1}{l|}{\textbf{8}}                     & \multicolumn{1}{l|}{\textbf{9}}                     & \multicolumn{1}{l|}{\textbf{10}}                    \\ \cline{2-12} 
-			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{1}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   \\ \cline{2-12} 
-			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{2}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12} 
-			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{3}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} \\ \cline{2-12} 
-			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{4}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12} 
-			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{5}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   \\ \cline{2-12} 
-			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{6}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   \\ \cline{2-12} 
-			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{7}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12} 
-			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{8}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12} 
-			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{9}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12} 
-			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{10}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12} 
-			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{11}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12} 
-			\multicolumn{1}{c|}{\multirow{-12}{*}{\rotatebox{90}{Intersection ID}}} & \multicolumn{1}{l|}{\textbf{12}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12} 
+			\multicolumn{1}{l}{}                                    &                                  & \multicolumn{10}{c}{Configuration \#}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     \\ \cline{3-12}
+			\multicolumn{1}{l}{}                                    & \multicolumn{1}{l|}{}            & \multicolumn{1}{l|}{\textbf{1}}                     & \multicolumn{1}{l|}{\textbf{2}}                     & \multicolumn{1}{l|}{\textbf{3}}                     & \multicolumn{1}{l|}{\textbf{4}}                     & \multicolumn{1}{l|}{\textbf{5}}                     & \multicolumn{1}{l|}{\textbf{6}}                     & \multicolumn{1}{l|}{\textbf{7}}                     & \multicolumn{1}{l|}{\textbf{8}}                     & \multicolumn{1}{l|}{\textbf{9}}                     & \multicolumn{1}{l|}{\textbf{10}}                    \\ \cline{2-12}
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{1}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   \\ \cline{2-12}
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{2}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12}
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{3}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} \\ \cline{2-12}
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{4}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12}
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{5}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   \\ \cline{2-12}
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{6}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{32CB00}open}   \\ \cline{2-12}
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{7}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12}
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{8}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12}
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{9}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FD6864}closed} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12}
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{10}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12}
+			\multicolumn{1}{c|}{}                                   & \multicolumn{1}{l|}{\textbf{11}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12}
+			\multicolumn{1}{c|}{\multirow{-12}{*}{\rotatebox{90}{Intersection ID}}} & \multicolumn{1}{l|}{\textbf{12}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}normal} \\ \cline{2-12}
 		\end{tabular}%
 	}
 	\caption{Intersection Configurations}
@@ -822,11 +920,11 @@ value.  This lends further validity to the notion that the closure of intersecti
 of longer evacuation times observed in the simulation runs.
 
 \section{Conclusion}
-While the closure of intersection 9 from Fig. \ref{fig:intersections} is
-responsible for an approximate 15 minute increase in evacuation time (raising
-the evacuation time from 2.5 hours to 2.75 hours), this amounts to an
-approximate 10\% increase in evacuation time from the SUI as compared to when
-intersection 9 is operating like a conventional crosswalk.
+While the closure of intersection 9 (shown in Fig. \ref{fig:intersectionMap})
+to pedestrians appears to be responsible for an approximate 15 minute increase
+in evacuation time (raising the evacuation time from 2.5 hours to 2.75 hours),
+this amounts to an approximate 10\% increase in evacuation time from the SUI
+as compared to when intersection 9 is operating like a conventional crosswalk.
 
 \section{Final Notes}
 It should be noted that all of the authors contributed equally to this work.
