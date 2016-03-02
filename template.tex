@@ -740,8 +740,63 @@ walking, but no new pedestrian traffic is allowed into the intersection.
 \end{table}
 
 \section{Results}
+As mentioned earlier, several intersections were identified in the SUI.  These
+intersections are shown in Fig. \ref{fig:intersections}.
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth,natwidth=1287,natheight=943]{GATechMap_IntersectionIDs.png}
+  \caption{SUI Intersections.}
+  \label{fig:intersections}
+\end{figure}
+
+Ten distinct combinations of intersection states were created with the purpose
+of evaluating the time it takes for pedestrians to evacuate the SUI under each
+combination; this is shown in (XXXX REFERENCE TABLE HERE).  Green cells indicate
+an intersection closed to vehicular traffic (i.e., it is effectively a sidewalk),
+yellow cells indicate an intersection with alternating vehicular and pedestrian
+traffic (i.e., a law enforcement officer directing traffic), and red cells indicate
+an intersection closed to all pedestrian traffic (i.e., nodes are removed from
+the map).
+
+(ADD TABLE OF INTERSECTION CONFIGURATIONS HERE)
+
+To achieve statistical significance, 20 runs were performed per intersection
+configuration.  As stated earlier, 90\% confidence intervals were constructed
+from each set of 20 runs.  The plot of the expected value, along with error
+bars representing the 90\% confidence intervals, is shown in Fig.
+\ref{fig:evacuationtimes}.  The runs are sorted such that the lowest expected
+evacuation times increase from left to right.
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth,natwidth=957,natheight=578]{EvacuationTimes.png}
+  \caption{SUI Evacuation Times.}
+  \label{fig:evacuationtimes}
+\end{figure}
+
+There are a few takeaways from the parametric results above.  First, the
+step-like behavior in evacuation times is caused exclusively by the closure of
+intersection 9; this is one of the few pathways that cross North Avenue.
+According to the results, its closure leads to an increase in average evacuation
+time by roughly 15 minutes.  The second takeaway is that, aside from the state
+of intersection 9 (which is never green, as this would violate the rule of
+not closing North Avenue to vehicular traffic), the state of other intersections
+do not have a statistically significant impact to evacuation time.
+
+For example, considering configurations 2 and 5, there are comparable
+configurations 6 and 1, respectively (note that the only difference between
+configurations 2 and 5, compared with configurations 6 and 1, is that intersection
+9 goes from red to yellow).  Comparing this to the baseline configuration 4
+(where all intersections are yellow), they are nearly identical in expected
+value.  This lends further validity to the notion that the closure of intersection
+9 is indeed the only culprit (in the set of tested intersection configurations)
+of longer evacuation times observed in the simulation runs.
 
 \section{Conclusion}
+While the closure of intersection 9 from Fig. \ref{fig:intersections} is
+responsible for an approximate 15 minute increase in evacuation time (raising
+the evacuation time from 2.5 hours to 2.75 hours), this amounts to an
+approximate 10\% increase in evacuation time from the SUI as compared to when
+intersection 9 is operating like a conventional crosswalk.
 
 \section{Final Notes}
 It should be noted that all of the authors contributed equally to this work.
