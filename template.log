@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  29 FEB 2016 19:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  2 MAR 2016 03:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**template
+**template.tex
 (./template.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
@@ -292,6 +292,42 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks18
 \@floatcapt=\box27
 )
+(/usr/local/texlive/2015/texmf-dist/tex/latex/multirow/multirow.sty
+\bigstrutjot=\dimen105
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2012/02/13 v1.0a Color table columns (DPC)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/array.sty
+Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen106
+\extrarowheight=\dimen107
+\NC@list=\toks19
+\extratabsurround=\skip43
+\backup@length=\skip44
+)
+\everycr=\toks20
+\minrowclearance=\skip45
+)
+\rownum=\count89
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
 
@@ -349,16 +385,16 @@ Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 )
-\@linkdim=\dimen105
-\Hy@linkcounter=\count89
-\Hy@pagecounter=\count90
+\@linkdim=\dimen108
+\Hy@linkcounter=\count90
+\Hy@pagecounter=\count91
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
-\Hy@SavedSpaceFactor=\count91
+\Hy@SavedSpaceFactor=\count92
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
@@ -371,17 +407,17 @@ Package hyperref Info: Plain pages OFF on input line 4458.
 Package hyperref Info: Backreferencing OFF on input line 4463.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4688.
-\c@Hy@tempcnt=\count92
+\c@Hy@tempcnt=\count93
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip10
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5041.
-\XeTeXLinkMargin=\dimen106
-\Fld@menulength=\count93
-\Field@Width=\dimen107
-\Fld@charsize=\dimen108
+\XeTeXLinkMargin=\dimen109
+\Fld@menulength=\count94
+\Field@Width=\dimen110
+\Fld@charsize=\dimen111
 Package hyperref Info: Hyper figures OFF on input line 6295.
 Package hyperref Info: Link nesting OFF on input line 6300.
 Package hyperref Info: Hyper index ON on input line 6303.
@@ -391,48 +427,48 @@ Package hyperref Info: Link coloring with OCG OFF on input line 6320.
 Package hyperref Info: PDF/A mode OFF on input line 6325.
 LaTeX Info: Redefining \ref on input line 6365.
 LaTeX Info: Redefining \pageref on input line 6369.
-\Hy@abspage=\count94
-\c@Item=\count95
-\c@Hfootnote=\count96
+\Hy@abspage=\count95
+\c@Item=\count96
+\c@Hfootnote=\count97
 )
 
 Package hyperref Message: Driver (autodetected): hpdftex.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
-\Fld@listcount=\count97
-\c@bookmark@seq@number=\count98
+\Fld@listcount=\count98
+\c@bookmark@seq@number=\count99
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
 Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
-\Hy@SectionHShift=\skip43
+\Hy@SectionHShift=\skip46
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 12.
+Package hyperref Info: Option `colorlinks' set `true' on input line 14.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/hypcap.sty
 Package: hypcap 2011/02/16 v1.11 Adjusting the anchors of captions (HO)
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count99
+\lst@mode=\count100
 \lst@gtempboxa=\box28
-\lst@token=\toks19
-\lst@length=\count100
-\lst@currlwidth=\dimen109
-\lst@column=\count101
-\lst@pos=\count102
-\lst@lostspace=\dimen110
-\lst@width=\dimen111
-\lst@newlines=\count103
-\lst@lineno=\count104
-\lst@maxwidth=\dimen112
+\lst@token=\toks21
+\lst@length=\count101
+\lst@currlwidth=\dimen112
+\lst@column=\count102
+\lst@pos=\count103
+\lst@lostspace=\dimen113
+\lst@width=\dimen114
+\lst@newlines=\count104
+\lst@lineno=\count105
+\lst@maxwidth=\dimen115
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
-\c@lstnumber=\count105
-\lst@skipnumbers=\count106
+\c@lstnumber=\count106
+\lst@skipnumbers=\count107
 \lst@framebox=\box29
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.cfg
@@ -440,51 +476,40 @@ File: listings.cfg 2014/09/06 1.5e listings configuration
 ))
 Package: listings 2014/09/06 1.5e (Carsten Heinz)
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/color.cfg
-File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
-)
-Package color Info: Driver file: pdftex.def on input line 142.
-)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2014/09/06 1.5e listings language file
 )
-(./template.aux
-
-LaTeX Warning: Label `fig:polygon' multiply defined.
-
-)
+(./template.aux)
 \openout1 = `template.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
- (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+
+(/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count107
-\scratchdimen=\dimen113
+\scratchcounter=\count108
+\scratchdimen=\dimen116
 \scratchbox=\box30
-\nofMPsegments=\count108
-\nofMParguments=\count109
-\everyMPshowfont=\toks20
-\MPscratchCnt=\count110
-\MPscratchDim=\dimen114
-\MPnumerator=\count111
-\makeMPintoPDFobject=\count112
-\everyMPtoPDFconversion=\toks21
+\nofMPsegments=\count109
+\nofMParguments=\count110
+\everyMPshowfont=\toks22
+\MPscratchCnt=\count111
+\MPscratchDim=\dimen117
+\MPnumerator=\count112
+\makeMPintoPDFobject=\count113
+\everyMPtoPDFconversion=\toks23
 ) (/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
@@ -501,7 +526,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \AtBeginShipoutBox=\box31
-Package hyperref Info: Link coloring ON on input line 40.
+Package hyperref Info: Link coloring ON on input line 42.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -509,21 +534,21 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count113
+\c@section@level=\count114
 )
-LaTeX Info: Redefining \ref on input line 40.
-LaTeX Info: Redefining \pageref on input line 40.
-LaTeX Info: Redefining \nameref on input line 40.
+LaTeX Info: Redefining \ref on input line 42.
+LaTeX Info: Redefining \pageref on input line 42.
+LaTeX Info: Redefining \nameref on input line 42.
 
 (./template.out) (./template.out)
 \@outlinefile=\write3
 \openout3 = `template.out'.
 
-\c@lstlisting=\count114
+\c@lstlisting=\count115
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 44.
+(Font)              <14.4> on input line 46.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 44.
+(Font)              <7> on input line 46.
  [1
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./temp
@@ -542,72 +567,104 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.50 \newpage
+l.52 \newpage
               [1]
 <stadium_diagram_updated.png, id=119, 522.95375pt x 436.63126pt>
 File: stadium_diagram_updated.png Graphic file (type png)
 
 <use stadium_diagram_updated.png>
-Package pdftex.def Info: stadium_diagram_updated.png used on input line 63.
+Package pdftex.def Info: stadium_diagram_updated.png used on input line 65.
 (pdftex.def)             Requested size: 390.0pt x 325.62714pt.
  [2 <./stadium_diagram_updated.png>]
-<cropped_map.png, id=129, 779.91376pt x 558.58687pt>
-File: cropped_map.png Graphic file (type png)
- <use cropped_map.png>
-Package pdftex.def Info: cropped_map.png used on input line 81.
-(pdftex.def)             Requested size: 390.0pt x 279.31831pt.
+<GATechMap_20160301.png, id=129, 772.38562pt x 564.60938pt>
+File: GATechMap_20160301.png Graphic file (type png)
 
-[3 <./cropped_map.png>] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13]
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 530.
+<use GATechMap_20160301.png>
+Package pdftex.def Info: GATechMap_20160301.png used on input line 83.
+(pdftex.def)             Requested size: 390.0pt x 285.0867pt.
+ [3 <./GATechMap_20160301.png>] [4] [5] [6]
+[7] <GATechMap_20160301_EntranceExits.png, id=205, 772.38562pt x 564.60938pt>
+File: GATechMap_20160301_EntranceExits.png Graphic file (type png)
 
+<use GATechMap_20160301_EntranceExits.png>
+Package pdftex.def Info: GATechMap_20160301_EntranceExits.png used on input lin
+e 292.
+(pdftex.def)             Requested size: 390.0pt x 285.0867pt.
+ [8] [9 <./GATechMap_20160301_EntranceExits.png>] [10] [11]
+<GATechMap_IntersectionIDs.png, id=239, 775.09575pt x 567.92175pt>
+File: GATechMap_IntersectionIDs.png Graphic file (type png)
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1cmtt.fd
+<use GATechMap_IntersectionIDs.png>
+Package pdftex.def Info: GATechMap_IntersectionIDs.png used on input line 417.
+(pdftex.def)             Requested size: 390.0pt x 285.754pt.
+ [12] [13 <./GATechMap_IntersectionIDs.png>] [14] [15]
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 540.
+
+ (/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-) [14] [15]
-Overfull \hbox (24.0pt too wide) in paragraph at lines 631--652
+)
+<DataLayout.png, id=265, 363.15675pt x 376.40625pt>
+File: DataLayout.png Graphic file (type png)
+ <use DataLayout.png>
+Package pdftex.def Info: DataLayout.png used on input line 559.
+(pdftex.def)             Requested size: 390.0pt x 404.26123pt.
+
+[16] [17 <./DataLayout.png>] [18]
+Overfull \hbox (24.0pt too wide) in paragraph at lines 647--668
+ [][] 
+ []
+
+[19] [20]
+Underfull \hbox (badness 1337) in paragraph at lines 709--713
+[]|\T1/cmr/m/n/12 Returns or sets the Neigh-bors at-
+ []
+
+
+Overfull \hbox (24.0pt too wide) in paragraph at lines 693--717
  [][] 
  []
 
 
-Underfull \hbox (badness 1337) in paragraph at lines 693--697
-[]\T1/cmr/m/n/12 Returns or sets the Neigh-bors at-
- []
-
-
-Overfull \hbox (24.0pt too wide) in paragraph at lines 677--701
+Overfull \hbox (24.0pt too wide) in paragraph at lines 735--752
  [][] 
  []
 
-[16] [17] [18]
-Overfull \hbox (24.0pt too wide) in paragraph at lines 720--737
- [][] 
- []
+<EvacuationTimes.png, id=329, 720.44156pt x 435.12563pt>
+File: EvacuationTimes.png Graphic file (type png)
 
-[19] [20] (./template.bbl [21
+<use EvacuationTimes.png>
+Package pdftex.def Info: EvacuationTimes.png used on input line 801.
+(pdftex.def)             Requested size: 390.0pt x 235.5486pt.
+ [21] [22] [23]
+
+LaTeX Warning: Reference `fig:intersections' on page 24 undefined on input line
+ 825.
+
+[24 <./EvacuationTimes.png>] [25] (./template.bbl [26
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 756.
- [22]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 756.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 842.
+ [27]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 842.
  (./template.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 756.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 756.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 842.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 842.
 Package rerunfilecheck Info: File `template.out' has not changed.
 (rerunfilecheck)             Checksum: DBAB4BC50BF0F5A424878D4658B13BF6;1265.
 
 
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 756.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 842.
  ) 
 Here is how much of TeX's memory you used:
- 7670 strings out of 493089
- 108525 string characters out of 6134842
- 234730 words of memory out of 5000000
- 10968 multiletter control sequences out of 15000+600000
+ 8209 strings out of 493089
+ 115178 string characters out of 6134842
+ 257592 words of memory out of 5000000
+ 11478 multiletter control sequences out of 15000+600000
  15533 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 29i,10n,40p,234b,1846s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,14n,40p,681b,1846s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
 /usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></
@@ -625,10 +682,10 @@ e/2015/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/
 /texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2015/t
 exmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></usr/local/texlive/2015/tex
 mf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on template.pdf (23 pages, 645947 bytes).
+Output written on template.pdf (28 pages, 6140098 bytes).
 PDF statistics:
- 405 PDF objects out of 1000 (max. 8388607)
- 356 compressed objects within 4 object streams
- 103 named destinations out of 1000 (max. 500000)
- 171 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 446 PDF objects out of 1000 (max. 8388607)
+ 388 compressed objects within 4 object streams
+ 114 named destinations out of 1000 (max. 500000)
+ 191 words of extra memory for PDF output out of 10000 (max. 10000000)
 
