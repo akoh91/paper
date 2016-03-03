@@ -7,6 +7,7 @@
 \usepackage{multirow}
 \usepackage[table,xcdraw]{xcolor}
 \usepackage[colorlinks]{hyperref}
+\usepackage{epstopdf}
 \hypersetup{
   colorlinks = true,
   linkcolor  = magenta,
@@ -80,7 +81,7 @@ stadium. As pedestrians exit the stadium, they enter the SUI, and as they cross
 the boundary of the polygon, they exit it.
 
 \begin{figure}[H]
-  \includegraphics[width=\linewidth,natwidth=1036,natheight=742]{cropped_map.png}
+  \includegraphics[width=\linewidth,natwidth=1023,natheight=750]{GATechMap_20160301.png}
   \caption{The system under investigation.}
   \label{fig:polygon}
 \end{figure}
@@ -89,6 +90,8 @@ The stadium has 11 ``exit zones'' modeled that serve as ingress (pre-game) and
 egress (post-game) sites. These serve as the entry points to our simulation. As
 pedestrians enter the SUI, they are assigned a destination and then proceed
 to their destination by way of pedestrian walking paths (i.e., sidewalks).
+These are denoted as the cyan-colored portions of the SUI.  Pedestrian crosswalks
+are also modeled; these are the yellow-colored portions of the SUI.
 
 \section{Related Work}
 \label{sec:literature}
@@ -888,6 +891,15 @@ the map).
 	\label{table:configs}
 \end{table}
 
+Intersection configurations were carefully configured to adhere to two governing
+rules:
+
+\begin{enumerate}
+  \item Intersections on North Ave shall never be open (i.e., closed to vehicular
+traffic).
+  \item No closed intersections shall make any destination node unreachable.
+\end{enumerate}
+
 To achieve statistical significance, 20 runs were performed per intersection
 configuration.  As stated earlier, 90\% confidence intervals were constructed
 from each set of 20 runs.  The plot of the expected value, along with error
@@ -896,7 +908,7 @@ bars representing the 90\% confidence intervals, is shown in Fig.
 evacuation times increase from left to right.
 
 \begin{figure}[H]
-  \includegraphics[width=\linewidth,natwidth=957,natheight=578]{EvacuationTimes.png}
+  \includegraphics[width=\linewidth,natwidth=1002,natheight=662]{EvacuationTimes.eps}
   \caption{SUI Evacuation Times.}
   \label{fig:evacuationtimes}
 \end{figure}
@@ -919,12 +931,68 @@ value.  This lends further validity to the notion that the closure of intersecti
 9 is indeed the only culprit (in the set of tested intersection configurations)
 of longer evacuation times observed in the simulation runs.
 
+\subsection{Verification Methodoogy}
+Throughout development of the model, team members routinely reviewed code
+that they did not write; this ensured that outside perspectives and fresh
+sets of eyes reviewed the code.  Code is very modular and compartmented to avoid
+a multitude of programmatic pitfalls.
+
+Before running on the SUI depicted in Fig. \ref{fig:polygon}, a smaller map
+was generated to evaluate model execution on a much smaller scale (the smaller
+map featured 2,380 nodes, while the SUI investigated in this study contained
+107,498 nodes). This facilitated rapid identification and fixing of bugs in
+a scalable simulation, and instilled confidence that the simulation was running
+as expected on the larger map.
+
+Visualization was a critical aspect of verifying the simulation model, and
+the development team regularly reviewed recordings of visualizations, in
+addition to carrying out real-time visual inspection of runs as they happened.
+
+Addressing the soundness of the vertex, edge, and intersection files, sanity
+checks were performed to avoid common pitfalls (such as edges referencing
+nodes that exist and intersections only referencing nodes representing
+roadways). One-wayness of map file generation also precluded tool-related
+bugs if one wanted to change these entities.
+
+As described earlier, goodness-of-fit tests were employed to ensure random
+number generation was satisfactorally performed.
+
+\subsection{Validation Methodology}
+Literature of comparable pedestrian simulations with similar outputs (i.e.,
+evacuation time analyses) was extensively used to define details regarding
+our model. A comprehensive description of takeaways from literature may be
+found in Section \ref{sec:literature}.
+
+As specified earlier, the pedestrian interarrival time was derived
+experimentally by observing a crowd of pedestrians exiting a structure. The
+data from this was scaled to meet the size of the exits in our particular SUI.
+
+The evacuation times themselves were evaluated based upon each author's
+experiences, which provides a level of face validation. In addition,
+configurations expected to have higher evacuation times (such as configuration
+9, which had the most closed intersections) and lower evacuation times
+(configuration 7, with the most open intersections) were identified, and the
+results aligned with this intuition.
+
+Again, visualization was utilizaed to ensure the simulation of pedestrian
+motion matched the authors' expectations based on real-world experiences.
+
+Finally, only practical intersection configurations were evaluated, where a practical
+intersection is defined as adhering to the governing rules listed earlier.
+
 \section{Conclusion}
 While the closure of intersection 9 (shown in Fig. \ref{fig:intersectionMap})
 to pedestrians appears to be responsible for an approximate 15 minute increase
 in evacuation time (raising the evacuation time from 2.5 hours to 2.75 hours),
 this amounts to an approximate 10\% increase in evacuation time from the SUI
 as compared to when intersection 9 is operating like a conventional crosswalk.
+
+For the intersection configurations tested, there was not a single configuration
+that stood out as a configuration that yields significantly lower evacuation
+times relative to the other configurations.  As such, so long as pedestrians are able
+to arrive at their destinations, under the assumptions noted in this paper,
+there is no evidence of a superior configuration which dramatically reduces
+evacuation time.
 
 \section{Final Notes}
 It should be noted that all of the authors contributed equally to this work.
