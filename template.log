@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  2 MAR 2016 22:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  2 MAR 2016 22:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -590,73 +590,70 @@ Package epstopdf Info: Source file: <PoissonCompare.eps>
 (epstopdf)                    date: 2016-03-02 22:06:14
 (epstopdf)                    size: 19600 bytes
 (epstopdf)             Output file: <PoissonCompare-eps-converted-to.pdf>
+(epstopdf)                    date: 2016-03-02 22:06:18
+(epstopdf)                    size: 8234 bytes
 (epstopdf)             Command: <repstopdf --outfile=PoissonCompare-eps-convert
 ed-to.pdf PoissonCompare.eps>
-(epstopdf)             \includegraphics on input line 230.
-runsystem(repstopdf --outfile=PoissonCompare-eps-converted-to.pdf PoissonCompar
-e.eps)...executed safely (allowed).
+(epstopdf)             \includegraphics on input line 231.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <PoissonCompare-eps-converted-to.pdf>
-(epstopdf)                    date: 2016-03-02 22:06:18
-(epstopdf)                    size: 8234 bytes.
-
-<PoissonCompare-eps-converted-to.pdf, id=206, 610.28pt x 408.52625pt>
+<PoissonCompare-eps-converted-to.pdf, id=208, 610.28pt x 408.52625pt>
 File: PoissonCompare-eps-converted-to.pdf Graphic file (type pdf)
 
 <use PoissonCompare-eps-converted-to.pdf>
 Package pdftex.def Info: PoissonCompare-eps-converted-to.pdf used on input line
- 230.
+ 231.
 (pdftex.def)             Requested size: 390.0pt x 261.07565pt.
  [7 <./PoissonCompare-eps-converted-to.pdf>] [8]
-<GATechMap_20160301_EntranceExits.png, id=233, 772.38562pt x 564.60938pt>
+<GATechMap_20160301_EntranceExits.png, id=235, 772.38562pt x 564.60938pt>
 File: GATechMap_20160301_EntranceExits.png Graphic file (type png)
 
 <use GATechMap_20160301_EntranceExits.png>
 Package pdftex.def Info: GATechMap_20160301_EntranceExits.png used on input lin
-e 311.
+e 312.
 (pdftex.def)             Requested size: 390.0pt x 285.0867pt.
  [9 <./GATechMap_20160301_EntranceExits.png>] [10] [11] [12]
-<GATechMap_IntersectionIDs.png, id=264, 775.09575pt x 567.92175pt>
+<GATechMap_IntersectionIDs.png, id=266, 775.09575pt x 567.92175pt>
 File: GATechMap_IntersectionIDs.png Graphic file (type png)
 
 <use GATechMap_IntersectionIDs.png>
-Package pdftex.def Info: GATechMap_IntersectionIDs.png used on input line 454.
+Package pdftex.def Info: GATechMap_IntersectionIDs.png used on input line 455.
 (pdftex.def)             Requested size: 390.0pt x 285.754pt.
  [13 <./GATechMap_IntersectionIDs.png>]
 [14] [15]
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 580.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 581.
 
  (/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 [16] [17]
-Underfull \hbox (badness 10000) in paragraph at lines 677--679
+Underfull \hbox (badness 10000) in paragraph at lines 678--680
 
  []
 
-[18] [19] <DataLayout.png, id=387, 363.15675pt x 376.40625pt>
+[18] [19] <DataLayout.png, id=389, 363.15675pt x 376.40625pt>
 File: DataLayout.png Graphic file (type png)
 
 <use DataLayout.png>
-Package pdftex.def Info: DataLayout.png used on input line 761.
+Package pdftex.def Info: DataLayout.png used on input line 762.
 (pdftex.def)             Requested size: 390.0pt x 404.26123pt.
  [20]
-Overfull \hbox (24.0pt too wide) in paragraph at lines 769--790
+Overfull \hbox (24.0pt too wide) in paragraph at lines 770--791
  [][] 
  []
 
 [21 <./DataLayout.png>] [22]
-Underfull \hbox (badness 1337) in paragraph at lines 821--825
+Underfull \hbox (badness 1337) in paragraph at lines 822--826
 []|\T1/cmr/m/n/12 Returns or sets the Neigh-bors at-
  []
 
 
-Overfull \hbox (24.0pt too wide) in paragraph at lines 810--829
+Overfull \hbox (24.0pt too wide) in paragraph at lines 811--830
  [][] 
  []
 
 [23]
-Overfull \hbox (24.0pt too wide) in paragraph at lines 851--868
+Overfull \hbox (24.0pt too wide) in paragraph at lines 852--869
  [][] 
  []
 
@@ -665,42 +662,39 @@ Package epstopdf Info: Source file: <EvacuationTimes.eps>
 (epstopdf)                    date: 2016-03-02 19:59:29
 (epstopdf)                    size: 18610 bytes
 (epstopdf)             Output file: <EvacuationTimes-eps-converted-to.pdf>
+(epstopdf)                    date: 2016-03-02 22:06:20
+(epstopdf)                    size: 6753 bytes
 (epstopdf)             Command: <repstopdf --outfile=EvacuationTimes-eps-conver
 ted-to.pdf EvacuationTimes.eps>
-(epstopdf)             \includegraphics on input line 926.
-runsystem(repstopdf --outfile=EvacuationTimes-eps-converted-to.pdf EvacuationTi
-mes.eps)...executed safely (allowed).
-
-Package epstopdf Info: Result file: <EvacuationTimes-eps-converted-to.pdf>
-(epstopdf)                    date: 2016-03-02 22:06:20
-(epstopdf)                    size: 6753 bytes.
- <EvacuationTimes-eps-converted-to.pdf, id=423, 754.82pt x 498.86375pt>
+(epstopdf)             \includegraphics on input line 927.
+Package epstopdf Info: Output file is already uptodate.
+ <EvacuationTimes-eps-converted-to.pdf, id=425, 754.82pt x 498.86375pt>
 File: EvacuationTimes-eps-converted-to.pdf Graphic file (type pdf)
 
 <use EvacuationTimes-eps-converted-to.pdf>
 Package pdftex.def Info: EvacuationTimes-eps-converted-to.pdf used on input lin
-e 926.
+e 927.
 (pdftex.def)             Requested size: 390.0pt x 257.75122pt.
  [25] [26 <./EvacuationTimes-eps-converted-to.pdf>] [27] [28] (./template.bbl [
 29
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1027.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1028.
  [30]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1027.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1028.
  (./template.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1027.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1027.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1028.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1028.
 
 Package rerunfilecheck Info: File `template.out' has not changed.
 (rerunfilecheck)             Checksum: 8234899DFB174D3A62958A5270FBD634;1427.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1027.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1028.
  ) 
 Here is how much of TeX's memory you used:
- 8291 strings out of 493089
- 116588 string characters out of 6134842
+ 8293 strings out of 493089
+ 116633 string characters out of 6134842
  252933 words of memory out of 5000000
- 11495 multiletter control sequences out of 15000+600000
+ 11496 multiletter control sequences out of 15000+600000
  15533 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,14n,40p,676b,1958s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -721,10 +715,10 @@ e/2015/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/
 /texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2015/t
 exmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></usr/local/texlive/2015/tex
 mf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on template.pdf (31 pages, 6482137 bytes).
+Output written on template.pdf (31 pages, 6482436 bytes).
 PDF statistics:
- 557 PDF objects out of 1000 (max. 8388607)
- 493 compressed objects within 5 object streams
- 175 named destinations out of 1000 (max. 500000)
+ 559 PDF objects out of 1000 (max. 8388607)
+ 495 compressed objects within 5 object streams
+ 176 named destinations out of 1000 (max. 500000)
  212 words of extra memory for PDF output out of 10000 (max. 10000000)
 

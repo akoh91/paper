@@ -85,6 +85,13 @@ PhysicsWorld.
 \newblock Pedestrian-dynamics experiment: stadium evacuation.
 \newblock \url{https://www.youtube.com/watch?v=4AZQ4lFLcb4}, 2010.
 
+\bibitem{rahman2013modelling}
+Khalidur Rahman, Noraida~Abdul Ghani, Anton~Abdulbasah Kamil, Adli Mustafa, and
+  Md~Ahmed~Kabir Chowdhury.
+\newblock Modelling pedestrian travel time and the design of facilities: A
+  queuing approach.
+\newblock {\em PloS one}, 8(5):e63503, 2013.
+
 \bibitem{weifeng2003simulation}
 Fang Weifeng, Yang Lizhong, and Fan Weicheng.
 \newblock Simulation of bi-direction pedestrian movement using a cellular
