@@ -204,7 +204,8 @@ The primary input to our simulation model is a stream of football game attendees
 (i.e., pedestrians) exiting Bobby Dodd Stadium following a home football game.
 For purposes of modeling this input stream, we assume pedestrian interarrival
 time at the stadium gate boundary is a homogeneous stochastic process that
-follows a Poisson distribution. Empirically, we determined the mean number of
+follows a Poisson distribution, as has been used in the literature
+\cite{rahman2013modelling}. Empirically, we determined the mean number of
 pedestrians per second arriving at the exit boundary from a 5-meter-wide exit to
 a stadium to be 4.05. This was determined by observing the number of pedestrians
 exiting a stadium on video \cite{youtubestadium}. This value was then used as
@@ -216,6 +217,21 @@ initial simulation model, it should be noted that in reality there is likely
 some variation over time. We use a simple queue structure to model the entry of
 pedestrians into our simulation. As pedestrians arrive at the gate boundary and
 exit the stadium, they enter the SUI.
+
+The random number generator used to sample the Poisson distribution underwent a
+chi-squared goodness-of-fit test to evaluate the hypothesis that the numbers obtained
+were indeed following a Poisson distribution. A 7-bin histogram of 1771 observed
+values from the generator, along with the corresponding theoretical histogram,
+is shown in Fig. \ref{fig:poissoncompare}. The chi-squared statistic was 1.2640;
+when compared with the critical value of 11.0705 (from chi-squared distribution
+with 5 degrees of freedom and 0.05 level of significance), the hypothesis
+stating that the distribution is Chi-Squared is not rejected.
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth,natwidth=811,natheight=512]{PoissonCompare.eps}
+  \caption{Poisson PDF Chi-Squared Test (lambda = 82.4280).}
+  \label{fig:poissoncompare}
+\end{figure}
 
 In addition, we select each pedestrian's target destination and walking
 speed at random. For selecting a target destination, we assume that pedestrian
@@ -954,7 +970,7 @@ addition to carrying out real-time visual inspection of runs as they happened.
 
 Addressing the soundness of the vertex, edge, and intersection files, sanity
 checks were performed to avoid common pitfalls (such as edges referencing
-nodes that exist and intersections only referencing nodes representing
+nodes that do not exist and intersections referencing nodes not representing
 roadways). One-wayness of map file generation also precluded tool-related
 bugs if one wanted to change these entities.
 

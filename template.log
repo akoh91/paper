@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  2 MAR 2016 15:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  2 MAR 2016 22:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -446,7 +446,25 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip46
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 14.
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf.sty
+Package: epstopdf 2010/02/09 v2.5 Conversion with epstopdf on the fly (HO)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+)
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+)))
+Package hyperref Info: Option `colorlinks' set `true' on input line 15.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/hypcap.sty
 Package: hypcap 2011/02/16 v1.11 Adjusting the anchors of captions (HO)
@@ -482,20 +500,20 @@ File: lstlang1.sty 2014/09/06 1.5e listings language file
 (./template.aux)
 \openout1 = `template.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
 
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -510,25 +528,10 @@ LaTeX Font Info:    ... okay on input line 42.
 \MPnumerator=\count112
 \makeMPintoPDFobject=\count113
 \everyMPtoPDFconversion=\toks23
-) (/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
 )
-Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 452.
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
 \AtBeginShipoutBox=\box31
-Package hyperref Info: Link coloring ON on input line 42.
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/nameref.sty
+Package hyperref Info: Link coloring ON on input line 43.
+ (/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -536,9 +539,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count114
 )
-LaTeX Info: Redefining \ref on input line 42.
-LaTeX Info: Redefining \pageref on input line 42.
-LaTeX Info: Redefining \nameref on input line 42.
+LaTeX Info: Redefining \ref on input line 43.
+LaTeX Info: Redefining \pageref on input line 43.
+LaTeX Info: Redefining \nameref on input line 43.
 
 (./template.out) (./template.out)
 \@outlinefile=\write3
@@ -546,9 +549,9 @@ LaTeX Info: Redefining \nameref on input line 42.
 
 \c@lstlisting=\count115
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 46.
+(Font)              <14.4> on input line 47.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 46.
+(Font)              <7> on input line 47.
  [1
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./temp
@@ -567,99 +570,131 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.52 \newpage
+l.53 \newpage
               [1]
-<stadium_diagram_updated.png, id=119, 522.95375pt x 436.63126pt>
+<stadium_diagram_updated.png, id=129, 522.95375pt x 436.63126pt>
 File: stadium_diagram_updated.png Graphic file (type png)
 
 <use stadium_diagram_updated.png>
-Package pdftex.def Info: stadium_diagram_updated.png used on input line 65.
+Package pdftex.def Info: stadium_diagram_updated.png used on input line 66.
 (pdftex.def)             Requested size: 390.0pt x 325.62714pt.
  [2 <./stadium_diagram_updated.png>]
-<cropped_map.png, id=129, 779.91376pt x 558.58687pt>
-File: cropped_map.png Graphic file (type png)
- <use cropped_map.png>
-Package pdftex.def Info: cropped_map.png used on input line 83.
-(pdftex.def)             Requested size: 390.0pt x 279.31831pt.
+<GATechMap_20160301.png, id=139, 1026.83624pt x 752.8125pt>
+File: GATechMap_20160301.png Graphic file (type png)
 
-[3 <./cropped_map.png>] [4] [5] [6] [7]
-<GATechMap_20160301_EntranceExits.png, id=206, 772.38562pt x 564.60938pt>
+<use GATechMap_20160301.png>
+Package pdftex.def Info: GATechMap_20160301.png used on input line 84.
+(pdftex.def)             Requested size: 390.0pt x 285.92238pt.
+ [3 <./GATechMap_20160301.png>] [4] [5] [6]
+Package epstopdf Info: Source file: <PoissonCompare.eps>
+(epstopdf)                    date: 2016-03-02 22:06:14
+(epstopdf)                    size: 19600 bytes
+(epstopdf)             Output file: <PoissonCompare-eps-converted-to.pdf>
+(epstopdf)                    date: 2016-03-02 22:06:18
+(epstopdf)                    size: 8234 bytes
+(epstopdf)             Command: <repstopdf --outfile=PoissonCompare-eps-convert
+ed-to.pdf PoissonCompare.eps>
+(epstopdf)             \includegraphics on input line 231.
+Package epstopdf Info: Output file is already uptodate.
+
+<PoissonCompare-eps-converted-to.pdf, id=208, 610.28pt x 408.52625pt>
+File: PoissonCompare-eps-converted-to.pdf Graphic file (type pdf)
+
+<use PoissonCompare-eps-converted-to.pdf>
+Package pdftex.def Info: PoissonCompare-eps-converted-to.pdf used on input line
+ 231.
+(pdftex.def)             Requested size: 390.0pt x 261.07565pt.
+ [7 <./PoissonCompare-eps-converted-to.pdf>] [8]
+<GATechMap_20160301_EntranceExits.png, id=235, 772.38562pt x 564.60938pt>
 File: GATechMap_20160301_EntranceExits.png Graphic file (type png)
 
 <use GATechMap_20160301_EntranceExits.png>
 Package pdftex.def Info: GATechMap_20160301_EntranceExits.png used on input lin
-e 293.
+e 312.
 (pdftex.def)             Requested size: 390.0pt x 285.0867pt.
- [8] [9 <./GATechMap_20160301_EntranceExits.png>] [10] [11]
-<GATechMap_IntersectionIDs.png, id=242, 775.09575pt x 567.92175pt>
+ [9 <./GATechMap_20160301_EntranceExits.png>] [10] [11] [12]
+<GATechMap_IntersectionIDs.png, id=266, 775.09575pt x 567.92175pt>
 File: GATechMap_IntersectionIDs.png Graphic file (type png)
 
 <use GATechMap_IntersectionIDs.png>
-Package pdftex.def Info: GATechMap_IntersectionIDs.png used on input line 436.
+Package pdftex.def Info: GATechMap_IntersectionIDs.png used on input line 455.
 (pdftex.def)             Requested size: 390.0pt x 285.754pt.
- [12 <./GATechMap_IntersectionIDs.png>]
-[13] [14]
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 562.
+ [13 <./GATechMap_IntersectionIDs.png>]
+[14] [15]
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 581.
 
  (/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-[15] [16] [17]
-Underfull \hbox (badness 10000) in paragraph at lines 659--661
+[16] [17]
+Underfull \hbox (badness 10000) in paragraph at lines 678--680
 
  []
 
-[18] <DataLayout.png, id=364, 363.15675pt x 376.40625pt>
+[18] [19] <DataLayout.png, id=389, 363.15675pt x 376.40625pt>
 File: DataLayout.png Graphic file (type png)
- <use DataLayout.png>
-Package pdftex.def Info: DataLayout.png used on input line 743.
-(pdftex.def)             Requested size: 390.0pt x 404.26123pt.
 
-[19]
-Overfull \hbox (24.0pt too wide) in paragraph at lines 751--772
+<use DataLayout.png>
+Package pdftex.def Info: DataLayout.png used on input line 762.
+(pdftex.def)             Requested size: 390.0pt x 404.26123pt.
+ [20]
+Overfull \hbox (24.0pt too wide) in paragraph at lines 770--791
  [][] 
  []
 
-[20 <./DataLayout.png>] [21]
-Underfull \hbox (badness 1337) in paragraph at lines 803--807
+[21 <./DataLayout.png>] [22]
+Underfull \hbox (badness 1337) in paragraph at lines 822--826
 []|\T1/cmr/m/n/12 Returns or sets the Neigh-bors at-
  []
 
 
-Overfull \hbox (24.0pt too wide) in paragraph at lines 792--811
+Overfull \hbox (24.0pt too wide) in paragraph at lines 811--830
  [][] 
  []
 
-[22]
-Overfull \hbox (24.0pt too wide) in paragraph at lines 833--850
+[23]
+Overfull \hbox (24.0pt too wide) in paragraph at lines 852--869
  [][] 
  []
 
-[23] <EvacuationTimes.png, id=401, 720.44156pt x 435.12563pt>
-File: EvacuationTimes.png Graphic file (type png)
+[24]
+Package epstopdf Info: Source file: <EvacuationTimes.eps>
+(epstopdf)                    date: 2016-03-02 19:59:29
+(epstopdf)                    size: 18610 bytes
+(epstopdf)             Output file: <EvacuationTimes-eps-converted-to.pdf>
+(epstopdf)                    date: 2016-03-02 22:06:20
+(epstopdf)                    size: 6753 bytes
+(epstopdf)             Command: <repstopdf --outfile=EvacuationTimes-eps-conver
+ted-to.pdf EvacuationTimes.eps>
+(epstopdf)             \includegraphics on input line 927.
+Package epstopdf Info: Output file is already uptodate.
+ <EvacuationTimes-eps-converted-to.pdf, id=425, 754.82pt x 498.86375pt>
+File: EvacuationTimes-eps-converted-to.pdf Graphic file (type pdf)
 
-<use EvacuationTimes.png>
-Package pdftex.def Info: EvacuationTimes.png used on input line 899.
-(pdftex.def)             Requested size: 390.0pt x 235.5486pt.
- [24] [25 <./EvacuationTimes.png>] [26]
-(./template.bbl [27
+<use EvacuationTimes-eps-converted-to.pdf>
+Package pdftex.def Info: EvacuationTimes-eps-converted-to.pdf used on input lin
+e 927.
+(pdftex.def)             Requested size: 390.0pt x 257.75122pt.
+ [25] [26 <./EvacuationTimes-eps-converted-to.pdf>] [27] [28] (./template.bbl [
+29
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 940.
- [28]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 940.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1028.
+ [30]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1028.
  (./template.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 940.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 940.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1028.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1028.
+
 Package rerunfilecheck Info: File `template.out' has not changed.
-(rerunfilecheck)             Checksum: 7ECAFA6E6A9A0EAF60A6D23A52583E3F;1282.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 940.
+(rerunfilecheck)             Checksum: 8234899DFB174D3A62958A5270FBD634;1427.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1028.
  ) 
 Here is how much of TeX's memory you used:
- 8269 strings out of 493089
- 115995 string characters out of 6134842
- 250592 words of memory out of 5000000
- 11484 multiletter control sequences out of 15000+600000
+ 8293 strings out of 493089
+ 116633 string characters out of 6134842
+ 252933 words of memory out of 5000000
+ 11496 multiletter control sequences out of 15000+600000
  15533 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,14n,40p,676b,1958s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -680,10 +715,10 @@ e/2015/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/
 /texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2015/t
 exmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></usr/local/texlive/2015/tex
 mf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on template.pdf (29 pages, 4758905 bytes).
+Output written on template.pdf (31 pages, 6482436 bytes).
 PDF statistics:
- 520 PDF objects out of 1000 (max. 8388607)
- 459 compressed objects within 5 object streams
- 168 named destinations out of 1000 (max. 500000)
- 191 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 559 PDF objects out of 1000 (max. 8388607)
+ 495 compressed objects within 5 object streams
+ 176 named destinations out of 1000 (max. 500000)
+ 212 words of extra memory for PDF output out of 10000 (max. 10000000)
 
