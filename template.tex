@@ -194,7 +194,7 @@ configuration has been used \cite{blue2001cellular}.
 \section{Conceptual Model}
 For our simulation, we utilize a 2-dimensional cellular automata (CA)-based
 approach. We construct a discrete time-stepped model, in which the simulation
-clock advances by a fixed interval every time step. We utilize a stochastic
+clock advances by a fixed interval every time step. In our simulation, 1 time step is modeled as 1 second. We utilize a stochastic
 (probabilistic) approach, in which the output of each individual simulation
 run is a random variable. Thus, multiple simulation runs will be performed and
 statistical analysis will be used to provide confidence levels in our results.
@@ -229,7 +229,7 @@ stating that the distribution is Chi-Squared is not rejected.
 
 \begin{figure}[H]
   \includegraphics[width=\linewidth,natwidth=811,natheight=512]{PoissonCompare.eps}
-  \caption{Poisson PDF Chi-Squared Test (lambda = 82.4280).}
+  \caption{Poisson PDF Chi-Squared Test ($\lambda$ = 82.4280).}
   \label{fig:poissoncompare}
 \end{figure}
 
@@ -278,8 +278,8 @@ New instances of the \textit{Pedestrian} class are created and initialized
 as pedestrians exit the stadium.
 
 \subsection{Output}
-For each simulation run, when all pedestrians were evacuated from the SUI we
-determined the simulation to be complete. As this is a stochastic simulation,
+For each simulation run, when all pedestrians are evacuated from the SUI we
+determine the simulation to be complete. As this is a stochastic simulation,
 the output results must be interpreted as samples of a random process.
 
 At the conclusion of a series of simulation runs for a given set of parameters,
@@ -360,7 +360,7 @@ has attributes as shown in Table \ref{table:node}. As part of the simulation
 initialization, the node and edge information is
 populated. We define a few key types of nodes, such as entrance, exit (or
 destination), and sidewalk nodes. For each entrance node $N_e$ in the graph, we
-precompute the least-cost path to every every possible destination node $N_d$.
+precompute the least-cost path to every possible destination node $N_d$.
 In general,
 we can compute the shortest path between any given node $N_i$ and destination
 node $N_d$ using Dijkstra's well-known algorithm \cite{dijkstra1959note}. In our
@@ -681,10 +681,10 @@ The more general form is as follows:
   $ python sim_batch.py -c <configJsonFile> -p <int numPeds> -v <t/f vizBoolean> -f <pathsFile>
 \end{lstlisting}
 
-where configJsonFile is the location of your configuration JSON file, numPeds is
-an integer defining the number of pedestrians to simulate, vizBoolean is `t'
-or `f' stating whether or not visualization should be turned on or off,
-respectively, and pathsFile is the location of a \textit{pickle} file, which
+where \textit{configJsonFile} is the location of your configuration JSON file, \textit{numPeds} is
+an integer defining the number of pedestrians to simulate, \textit{vizBoolean} is $t$
+or $f$ stating whether or not visualization should be turned on or off,
+respectively, and \textit{pathsFile} is the location of a \textit{pickle} file, which
 contains precomputed shortest path information.
 
 The output will initially state that a preprocessing step is being performed
@@ -695,10 +695,10 @@ number of pedestrians remaining in the pedestrian queue (in other words, the
 input queue) will be displayed at every time step.
 
 Behind the scenes, initializing a new simulation creates a
-\textit{Grid} object, which is initialized from a node file, edge file,
+\textit{Grid} object, which is initialized from a node file, intersection file, edge file,
 type map giving translations between integer node types (such as SUI entrance,
 SUI exit, sidewalk, and road), and configuration file containing
-paramterizations. An optional file in \textit{pickle} format can
+parameterizations. An optional file in \textit{pickle} format can
 contain previously computed shortest path information, as this is a fairly
 expensive step that need only occur when intersections are opened or closed.
 
@@ -714,6 +714,14 @@ meters\textunderscore x, and meters\textunderscore y translate the $x$ and $y$
 coordinates into pixel space and physical space, respectively. The
 node\textunderscore type is an integer value that specifies whether the node
 is a sidewalk (1), road (2), SUI entrance (3), or SUI exit (4) node.
+
+The intersection file should also be in a CSV format, of the form: 
+
+\begin{lstlisting}
+intersection_id, node_id
+\end{lstlisting}
+
+where the given node id represents a node that is part of the intersection with the corresponding id.
 
 The edge file should also be in a CSV format, of the form:
 
@@ -798,7 +806,7 @@ Nodes are the primary abstraction for the resource entities in the simulation,
 which are sidewalks and roads. Nodes have several key attributes defined that
 can be retrieved and set. Among them, the Neighbors attribute specifies all the
 nodes that are one degree away from the node object. The Neighbors attribute is
-then used to populate the Paths attribute for the node, which is a hash map
+then used to populate the \textit{Paths} attribute for the node, which is a hash map
 that gives the shortest path to each possible destination node
 in the simulation. We precompute the \textit{Paths} attribute for each entrance
 node in the graph prior to beginning the simulation. This precomputation step
