@@ -925,14 +925,15 @@ the 90\% confidence intervals are not very large: the maximum interval was merel
 0.9118 minutes, indicating the expected values plotted are, at worst, 90\% likely
 to be within about 1 minute of the true mean of each configuration's random variable.
 
-For example, considering configurations 2 and 5, there are comparable
-configurations 6 and 1, respectively (note that the only difference between
-configurations 2 and 5, compared with configurations 6 and 1, is that intersection
-9 goes from red to yellow).  Comparing this to the baseline configuration 4
-(where all intersections are yellow), they are nearly identical in expected
-value.  This lends further validity to the notion that the closure of intersection
-9 is indeed the only culprit (in the set of tested intersection configurations)
-of longer evacuation times observed in the simulation runs.
+An example of the impact of closing intersection 9 follows. Consider configuration 2
+and configuration 6; note that the only difference between these two configurations
+is the state of intersection 9. Similarly, configuration 5 and configuration 1
+exhibit this same relationship.  In Fig. \ref{fig:evacuationtimes}, note that
+configurations 2 and 5 turned out to be on the upper portion of the step-like
+function, while configurations 6 and 1 are on the lower portion; this lends
+further validity to the notion that the closure of intersection 9 is indeed
+the only culprit (in the set of tested intersection configurations) of longer
+evacuation times observed in the simulation runs.
 
 \subsection{Verification Methodoogy}
 Throughout development of the model, team members routinely reviewed code
