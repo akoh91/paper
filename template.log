@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  3 MAR 2016 03:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  3 MAR 2016 18:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**template.tex
+**template
 (./template.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
@@ -572,37 +572,37 @@ been already used, duplicate ignored
                    \relax 
 l.53 \newpage
               [1]
-<stadium_diagram_updated.png, id=129, 522.95375pt x 436.63126pt>
+<stadium_diagram_updated.png, id=130, 522.95375pt x 436.63126pt>
 File: stadium_diagram_updated.png Graphic file (type png)
 
 <use stadium_diagram_updated.png>
 Package pdftex.def Info: stadium_diagram_updated.png used on input line 66.
 (pdftex.def)             Requested size: 390.0pt x 325.62714pt.
  [2 <./stadium_diagram_updated.png>]
-<GATechMap_20160301.png, id=139, 1026.83624pt x 752.8125pt>
+<GATechMap_20160301.png, id=140, 1026.83624pt x 752.8125pt>
 File: GATechMap_20160301.png Graphic file (type png)
 
 <use GATechMap_20160301.png>
-Package pdftex.def Info: GATechMap_20160301.png used on input line 84.
+Package pdftex.def Info: GATechMap_20160301.png used on input line 86.
 (pdftex.def)             Requested size: 390.0pt x 285.92238pt.
  [3 <./GATechMap_20160301.png>] [4] [5] [6]
 Package epstopdf Info: Source file: <PoissonCompare.eps>
-(epstopdf)                    date: 2016-03-03 00:14:27
+(epstopdf)                    date: 2016-03-02 22:06:14
 (epstopdf)                    size: 19600 bytes
 (epstopdf)             Output file: <PoissonCompare-eps-converted-to.pdf>
-(epstopdf)                    date: 2016-03-03 00:14:27
+(epstopdf)                    date: 2016-03-02 22:06:18
 (epstopdf)                    size: 8234 bytes
 (epstopdf)             Command: <repstopdf --outfile=PoissonCompare-eps-convert
 ed-to.pdf PoissonCompare.eps>
-(epstopdf)             \includegraphics on input line 231.
+(epstopdf)             \includegraphics on input line 234.
 Package epstopdf Info: Output file is already uptodate.
 
-<PoissonCompare-eps-converted-to.pdf, id=207, 610.28pt x 408.52625pt>
+<PoissonCompare-eps-converted-to.pdf, id=209, 610.28pt x 408.52625pt>
 File: PoissonCompare-eps-converted-to.pdf Graphic file (type pdf)
 
 <use PoissonCompare-eps-converted-to.pdf>
 Package pdftex.def Info: PoissonCompare-eps-converted-to.pdf used on input line
- 231.
+ 234.
 (pdftex.def)             Requested size: 390.0pt x 261.07565pt.
  [7 <./PoissonCompare-eps-converted-to.pdf>] [8]
 <GATechMap_20160301_EntranceExits.png, id=235, 772.38562pt x 564.60938pt>
@@ -610,94 +610,99 @@ File: GATechMap_20160301_EntranceExits.png Graphic file (type png)
 
 <use GATechMap_20160301_EntranceExits.png>
 Package pdftex.def Info: GATechMap_20160301_EntranceExits.png used on input lin
-e 312.
+e 316.
 (pdftex.def)             Requested size: 390.0pt x 285.0867pt.
  [9] [10 <./GATechMap_20160301_EntranceExits.png>] [11] [12]
-<GATechMap_IntersectionIDs.png, id=266, 775.09575pt x 567.92175pt>
+<GATechMap_IntersectionIDs.png, id=268, 775.09575pt x 567.92175pt>
 File: GATechMap_IntersectionIDs.png Graphic file (type png)
 
 <use GATechMap_IntersectionIDs.png>
-Package pdftex.def Info: GATechMap_IntersectionIDs.png used on input line 455.
+Package pdftex.def Info: GATechMap_IntersectionIDs.png used on input line 458.
 (pdftex.def)             Requested size: 390.0pt x 285.754pt.
  [13 <./GATechMap_IntersectionIDs.png>]
 [14] [15]
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 581.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 584.
 
  (/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-[16] [17]
-Underfull \hbox (badness 10000) in paragraph at lines 678--680
+[16] [17] [18]
+Underfull \hbox (badness 10000) in paragraph at lines 681--683
 
  []
 
-[18] [19] <DataLayout.png, id=387, 363.15675pt x 376.40625pt>
-File: DataLayout.png Graphic file (type png)
+[19]
+Underfull \hbox (badness 10000) in paragraph at lines 729--730
 
-<use DataLayout.png>
-Package pdftex.def Info: DataLayout.png used on input line 770.
+ []
+
+<DataLayout.png, id=389, 363.15675pt x 376.40625pt>
+File: DataLayout.png Graphic file (type png)
+ <use DataLayout.png>
+Package pdftex.def Info: DataLayout.png used on input line 774.
 (pdftex.def)             Requested size: 390.0pt x 404.26123pt.
- [20]
-Overfull \hbox (24.0pt too wide) in paragraph at lines 778--799
+
+[20]
+Overfull \hbox (24.0pt too wide) in paragraph at lines 782--803
  [][] 
  []
 
 [21 <./DataLayout.png>] [22]
-Underfull \hbox (badness 1337) in paragraph at lines 830--834
+Underfull \hbox (badness 1337) in paragraph at lines 834--838
 []|\T1/cmr/m/n/12 Returns or sets the Neigh-bors at-
  []
 
 
-Overfull \hbox (24.0pt too wide) in paragraph at lines 819--838
+Overfull \hbox (24.0pt too wide) in paragraph at lines 823--842
  [][] 
  []
 
 [23]
-Overfull \hbox (24.0pt too wide) in paragraph at lines 860--877
+Overfull \hbox (24.0pt too wide) in paragraph at lines 864--881
  [][] 
  []
 
 [24]
 Package epstopdf Info: Source file: <EvacuationTimes.eps>
-(epstopdf)                    date: 2016-03-02 19:11:20
+(epstopdf)                    date: 2016-03-02 19:59:29
 (epstopdf)                    size: 18610 bytes
 (epstopdf)             Output file: <EvacuationTimes-eps-converted-to.pdf>
-(epstopdf)                    date: 2016-03-03 00:14:27
+(epstopdf)                    date: 2016-03-02 22:06:20
 (epstopdf)                    size: 6753 bytes
 (epstopdf)             Command: <repstopdf --outfile=EvacuationTimes-eps-conver
 ted-to.pdf EvacuationTimes.eps>
-(epstopdf)             \includegraphics on input line 935.
+(epstopdf)             \includegraphics on input line 939.
 Package epstopdf Info: Output file is already uptodate.
- <EvacuationTimes-eps-converted-to.pdf, id=427, 754.82pt x 498.86375pt>
+ <EvacuationTimes-eps-converted-to.pdf, id=429, 754.82pt x 498.86375pt>
 File: EvacuationTimes-eps-converted-to.pdf Graphic file (type pdf)
 
 <use EvacuationTimes-eps-converted-to.pdf>
 Package pdftex.def Info: EvacuationTimes-eps-converted-to.pdf used on input lin
-e 935.
+e 939.
 (pdftex.def)             Requested size: 390.0pt x 257.75122pt.
- [25] [26 <./EvacuationTimes-eps-converted-to.pdf>] [27] [28] (./template.bbl [
-29
+ [25] [26 <./EvacuationTimes-eps-converted-to.pdf>] [27] [28] [29] (./template.
+bbl [30
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1036.
- [30]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1036.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1047.
+ [31]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1047.
  (./template.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1036.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1036.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1047.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1047.
 
 Package rerunfilecheck Info: File `template.out' has not changed.
-(rerunfilecheck)             Checksum: 8234899DFB174D3A62958A5270FBD634;1427.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1036.
+(rerunfilecheck)             Checksum: 05EBAFB8B3D65BB6C169830D4DF1E366;1428.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1047.
  ) 
 Here is how much of TeX's memory you used:
- 8296 strings out of 493089
- 116682 string characters out of 6134842
+ 8298 strings out of 493089
+ 116699 string characters out of 6134842
  252933 words of memory out of 5000000
- 11497 multiletter control sequences out of 15000+600000
+ 11498 multiletter control sequences out of 15000+600000
  15533 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,14n,40p,680b,1958s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,14n,40p,676b,1958s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
 /usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></
@@ -715,10 +720,10 @@ e/2015/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/
 /texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2015/t
 exmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></usr/local/texlive/2015/tex
 mf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on template.pdf (31 pages, 6483255 bytes).
+Output written on template.pdf (32 pages, 6484552 bytes).
 PDF statistics:
- 561 PDF objects out of 1000 (max. 8388607)
- 497 compressed objects within 5 object streams
- 178 named destinations out of 1000 (max. 500000)
+ 568 PDF objects out of 1000 (max. 8388607)
+ 502 compressed objects within 6 object streams
+ 179 named destinations out of 1000 (max. 500000)
  212 words of extra memory for PDF output out of 10000 (max. 10000000)
 
