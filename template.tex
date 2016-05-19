@@ -36,7 +36,7 @@
   tabsize=3
 }
 
-\title{Project Checkpoint: CSE 6730 Project 1}
+\title{Final Report: CSE 6730 Project 1}
 \author{Chris Dunlap, Allen Koh, Matt May}
 \date{Spring 2016}
 
@@ -60,7 +60,7 @@ long history of multi-disciplinary study \cite{zheng2009modeling}. For this
 study, we focus specifically on the problem of efficiently evacuating the
 area around Bobby Dodd Stadium in Atlanta, GA. Bobby Dodd Stadium, the home of
 the NCAA Division-I Georgia Tech Yellow Jackets football team, has a
-seating capacity of 55,000 individuals.
+seating capacity of 55,000 individuals (Fig. \ref{fig:stadiumseating}).
 
 \begin{figure}[H]
   \includegraphics[width=\linewidth,natwidth=521,natheight=435]{stadium_diagram_updated.png}
@@ -74,11 +74,13 @@ following a home football game. We do this by taking a parametric approach, in
 which we explore the effects of road closures and the ``takeover'' of certain
 intersections by law enforcement in promoting an optimal result.
 
-For purposes of this study, we define the system under investigation (SUI) as a
-rectangular polygon (Fig. \ref{fig:polygon}) surrounding the stadium. To be
-clear, the SUI is defined as the area inside the polygon but outside the
-stadium. As pedestrians exit the stadium, they enter the SUI, and as they cross
-the boundary of the polygon, they exit it.
+For purposes of this study, we define the system under investigation (SUI) as
+roughly the area shown in Fig. \ref{fig:polygon}. The cyan overlay indicates
+pedestrian walking paths (i.e., sidewalks). The SUI is comprised of the area
+outside the stadium where pedestrians may walk as they travel to their
+respective destinations. As pedestrians exit the stadium, they enter the SUI,
+and as they reach certain specified destination nodes on the boundaries of the
+SUI, they exit it.
 
 \begin{figure}[H]
   \includegraphics[width=\linewidth,natwidth=1023,natheight=750]{GATechMap_20160301.png}
@@ -90,8 +92,8 @@ The stadium has 11 ``exit zones'' modeled that serve as ingress (pre-game) and
 egress (post-game) sites. These serve as the entry points to our simulation. As
 pedestrians enter the SUI, they are assigned a destination and then proceed
 to their destination by way of pedestrian walking paths (i.e., sidewalks).
-These are denoted as the cyan-colored portions of the SUI.  Pedestrian crosswalks
-are also modeled; these are the yellow-colored portions of the SUI.
+Pedestrian crosswalks are also modeled; these are the light yellow-colored paths
+shown in Fig. \ref{fig:polygon}.
 
 \section{Related Work}
 \label{sec:literature}
@@ -133,7 +135,7 @@ automatically when reacting to obstacles and other pedestrians, applying
 strategies that have been learned to be most effective over time. Several
 suggestions are made to alleviate the three most common problems in pedestrian
 crowds: counterflows, bottlenecks, and intersecting flows. The presence of
-strategically placed obstacles are found to actually reduce these negative
+strategically placed obstacles is found to actually reduce these negative
 phenomena, leading to improved flow.
 
 Building on previous cellular automata-based models, Burstedde et al.
@@ -182,7 +184,7 @@ floor field \cite{burstedde2001simulation} to factor in long-distance forces,
 could be utilized. In cases where there are two pedestrians targeting each other's
 current positions for a next move, which may happen when they are walking in
 opposing directions in the same lane, the concept of \textit{place exchange}
-has merit when two pedestrians walking in opposing directions \cite{blue2001cellular}.
+has merit for resolving this potential conflict. \cite{blue2001cellular}.
 
 Finally, simulation execution practices were also gleaned. Care must be taken
 to do parallel-based updating to avoid sequential updating from interfering with
@@ -194,7 +196,8 @@ configuration has been used \cite{blue2001cellular}.
 \section{Conceptual Model}
 For our simulation, we utilize a 2-dimensional cellular automata (CA)-based
 approach. We construct a discrete time-stepped model, in which the simulation
-clock advances by a fixed interval every time step. In our simulation, 1 time step is modeled as 1 second. We utilize a stochastic
+clock advances by a fixed interval every time step. In our simulation, one time
+step is modeled as one second. We utilize a stochastic
 (probabilistic) approach, in which the output of each individual simulation
 run is a random variable. Thus, multiple simulation runs will be performed and
 statistical analysis will be used to provide confidence levels in our results.
@@ -225,7 +228,7 @@ values from the generator, along with the corresponding theoretical histogram,
 is shown in Fig. \ref{fig:poissoncompare}. The chi-squared statistic was 1.2640;
 when compared with the critical value of 11.0705 (from chi-squared distribution
 with 5 degrees of freedom and 0.05 level of significance), the hypothesis
-stating that the distribution is Chi-Squared is not rejected.
+stating that the distribution is chi-squared is not rejected.
 
 \begin{figure}[H]
   \includegraphics[width=\linewidth,natwidth=811,natheight=512]{PoissonCompare.eps}
@@ -237,8 +240,9 @@ In addition, we select each pedestrian's target destination and walking
 speed at random. For selecting a target destination, we assume that pedestrian
 destinations are uniformly distributed and sample from a pool of exit nodes
 from the SUI that correspond to parking lots, local housing, and public
-transportation. For determining a walking speed for each pedestrian, we sample
-from a distribution previously referenced in the literature by Blue and Adler
+transportation (see exit nodes in Fig. \ref{fig:mapentranceexits}). For
+determining a walking speed for each pedestrian, we sample from a distribution
+previously referenced in the literature by Blue and Adler
 \cite{blue2001cellular} (5\% fast walkers (4 cells/time step), 90\% standard
 (3 cells/time step), 5\% slow (2 cells/time step)).
 
@@ -314,15 +318,6 @@ that in this section, the terms ``cell'' and ``node'' are used interchangeably.
   \label{fig:mapentranceexits}
 \end{figure}
 
-As pedestrians exit the stadium (and thus enter the SUI), they are
-probabilistically assigned one of the graph's destination nodes (exit nodes
-in Fig. \ref{fig:mapentranceexits}) according to a uniform distribution. When
-a pedestrian reaches a destination node, that constitutes exiting the SUI.
-Destination nodes were determined based on their spatial meaning when overlaid
-on a map of the SUI, and constitute one of three possible classes: on-campus
-housing (dormitories), parking lots, or the North Avenue Metropolitan Atlanta
-Rapid Transit Authority (MARTA) station.
-
 \def\arraystretch{1.5}
 \begin{table}[hb!]
   \centering
@@ -368,7 +363,11 @@ simulation, we use a publicly available Python implementation of Dijkstra's
 algorithm \cite{eppstein-dijkstra}. As pedestrians are initialized and added to
 the simulation, they are randomly assigned an entrance node according to a
 uniform distribution. The pedestrian then ``looks up'' the appropriate path
-to the assigned destination. This path is then stored as a list structure on the
+to the assigned destination. Destination nodes always fall into one of three
+possible classes: on-campus
+housing (dormitories), parking lots, or the North Avenue Metropolitan Atlanta
+Rapid Transit Authority (MARTA) station. This path is then stored as a list
+structure on the
 pedestrian called \textit{ShortestPath}.
 
 At each time step, the simulation pops an element (which corresponds to a node)
@@ -397,12 +396,16 @@ several parameters that can be altered. The first parameter is opening certain
 streets or intersections meant for vehicular traffic and making them for use by
 pedestrians only (i.e., roads become sidewalks). The second is closing certain
 streets or intersections and making them for use by vehicles only (i.e.
-intersections become roads). The optimal time for all pedestrians to evacuate
-the SUI could be a combination of the two parameters. For example, opening an
-intersection to pedestrians only and closing a nearby small intersection may to
+intersections become roads). The third is the use of intersections in a more
+or less normal manner, but with the added option of extended open times to pedestrians (in
+other words, the manual management of intersections by law enforcement).
+The optimal time for all pedestrians to evacuate
+the SUI could be a combination of these three levers applied in different
+ways. For example, opening an
+intersection to pedestrians only and closing a nearby small intersection to
 pedestrian traffic (i.e., opening it to vehicular traffic only) may be a
 combination that produces better results than only directing pedestrians to a
-regular crosswalk. We explore these types of permutations in our results.
+regular crosswalk. We explore these types of combinations in our results.
 
 To simulate these parameters, in addition to a \textit{Node} class, there is
 also an \textit{Intersection} class, which has attributes as shown in Table
@@ -481,13 +484,13 @@ To model the egress of the stadium, we take a stochastic (probabilistic)
 approach. In the context of a computer simulation, this necessitates the use of
 a pseudorandom number generator.
 
-For our simulation, we use the Lehmer random number generator
+For our simulation, we implement the Lehmer random number generator
 \cite{payne1969coding}, also known as the Park-Miller random number generator
 \cite{park1988random}. For verification of the generator, we performed
-100,000 iterations of a chi-square test procedure in which 1,000 samples were
+100,000 iterations of a chi-squared test procedure in which 1,000 samples were
 drawn from the random number generator. For each iteration, we placed each
 sample into one of 100 bins, forming a histogram. We then computed the
-chi-square statistic, namely:
+chi-squared statistic, namely:
 
 \begin{equation}
 {\chi}^2=\sum_{i=1}^{n} \frac{(O_i - E_i)^2}{E_i}
@@ -496,8 +499,8 @@ chi-square statistic, namely:
 where ${\chi}^2$ is the chi-squared statistic, which asympotically approaches
 a ${\chi}^2$ distribution, $O_i$ is the count of observations of type $i$,
 and $E_i$ is the expected count of observations of type $i$. We determined the
-chi-square critical value for 99 degrees of freedom and a $p$-value of 0.05 to be
-123.225. Experimentally, our generator failed to pass the chi-square test only
+chi-squared critical value for 99 degrees of freedom and a $p$-value of 0.05 to be
+123.225. Experimentally, our generator failed to pass the chi-squared test only
 4.95\% of the time over 100,000 iterations, allowing us to not reject the null
 hypothesis that our random number generator produces uniformly distributed
 random numbers with 95\% certainty.
@@ -658,7 +661,7 @@ array, which contains three types of parameters - \textit{intersection\_closed},
 these, a list of intersection identifiers is given. These identifiers correspond
 to those in Fig. \ref{fig:intersectionMap}, and instruct the simulation on
 whether to close the intersections to pedestrians, open the intersections to
-pedestrians, or leave the intersection as normal - in other words, as changing
+pedestrians, or leave the intersections as normal - in other words, as changing
 between closed and open at some interval.
 
 For the \textit{intersection\_normal} case, instead of a simple list of
@@ -666,10 +669,10 @@ intersection identifiers, a list of objects should be given as shown above, with
 a \textit{time} parameter specifying the number of timesteps each intersection
 should be closed.
 
-Once Python, matplotlib, and NumPy are installed and a configuration JSON file
-is selected, you can simply enter the \textit{code} subdirectory and run the
+Once Python, matplotlib, and NumPy are installed, you can simply enter the
+\textit{code} subdirectory and run the
 following at a Unix command prompt to start an example batch of 20 simulation
-runs with 5,000 pedestrians:
+runs with 5,000 pedestrians:\\
 
 \begin{lstlisting}
   $ python sim_batch.py -c config/config1.json -p 5000 -v t -f paths/config1.pickle
@@ -715,7 +718,7 @@ coordinates into pixel space and physical space, respectively. The
 node\textunderscore type is an integer value that specifies whether the node
 is a sidewalk (1), road (2), SUI entrance (3), or SUI exit (4) node.
 
-The intersection file should also be in a CSV format, of the form: 
+The intersection file should also be in a CSV format, of the form:
 
 \begin{lstlisting}
 intersection_id, node_id
@@ -723,7 +726,7 @@ intersection_id, node_id
 
 where the given node id represents a node that is part of the intersection with the corresponding id.
 
-The edge file should also be in a CSV format, of the form:
+The edge file should also be in a CSV format, of the form:\\
 
 \begin{lstlisting}
   node_a_id, node_b_id, edge_weight
@@ -755,7 +758,8 @@ An overview of the key relationships between classes in our simulation is shown
 in Fig. \ref{fig:datalayout}.
 
 \subsubsection{Pedestrian Class Interfaces}
-For simulating pedestrian movement, we define a \textit{Pedestrian} class as
+For simulating pedestrian movement, we define a number of methods (or functions)
+for the \textit{Pedestrian} class as
 shown in Table \ref{table:pedestrian_methods}. Pedestrians are initialized with
 an entrance node to the SUI, as well as a destination node and speed. They then
 traverse the nodes in the shortest path toward their destination node. Once
@@ -959,12 +963,7 @@ further validity to the notion that the closure of intersection 9 is indeed
 the only culprit (in the set of tested intersection configurations) of longer
 evacuation times observed in the simulation runs.
 
-\subsection{Verification Methodoogy}
-Throughout development of the model, team members routinely reviewed code
-that they did not write; this ensured that outside perspectives and fresh
-sets of eyes reviewed the code.  Code is very modular and compartmented to avoid
-a multitude of programmatic pitfalls.
-
+\subsection{Verification Methodology}
 Before running on the SUI depicted in Fig. \ref{fig:polygon}, a smaller map
 was generated to evaluate model execution on a much smaller scale (the smaller
 map featured 2,380 nodes, while the SUI investigated in this study contained
@@ -972,9 +971,10 @@ map featured 2,380 nodes, while the SUI investigated in this study contained
 a scalable simulation, and instilled confidence that the simulation was running
 as expected on the larger map.
 
-Visualization was a critical aspect of verifying the simulation model, and
-the development team regularly reviewed recordings of visualizations, in
-addition to carrying out real-time visual inspection of runs as they happened.
+Visualization was a critical aspect of verifying the simulation model. By
+visual inspection of many different combinations of parameters, we were able to
+address a range of problems - including the so-called \textit{jamming} problem,
+in which the simulation initially failed to complete.
 
 Addressing the soundness of the vertex, edge, and intersection files, sanity
 checks were performed to avoid common pitfalls (such as edges referencing
@@ -983,7 +983,8 @@ roadways). One-wayness of map file generation also precluded tool-related
 bugs if one wanted to change these entities.
 
 As described earlier, goodness-of-fit tests were employed to ensure random
-number generation was satisfactorally performed.
+number generation was satisfactorally performed, and that resultant distributions
+matched their theoretical distribution at a particular confidence.
 
 \subsection{Validation Methodology}
 Literature of comparable pedestrian simulations with similar outputs (i.e.,
@@ -1002,7 +1003,7 @@ configurations expected to have higher evacuation times (such as configuration
 (configuration 7, with the most open intersections) were identified, and the
 results aligned with this intuition.
 
-Again, visualization was utilizaed to ensure the simulation of pedestrian
+Again, visualization was utilized to ensure the simulation of pedestrian
 motion matched the authors' expectations based on real-world experiences.
 
 Finally, only practical intersection configurations were evaluated, where a practical
@@ -1021,6 +1022,16 @@ times relative to the other configurations.  As such, so long as pedestrians are
 to arrive at their destinations, under the assumptions noted in this paper,
 there is no evidence of a superior configuration which dramatically reduces
 evacuation time.
+
+In future studies, more exhaustive combinations of parameters could be
+assessed, as one limitation of the current study was the hand-selection of
+various parameter sets. Another enhancement would be testing our model with
+additional pedestrian movement schemes, to determine if less focused pedestrian
+movement results in significantly different results. Furthermore, increased
+analysis could be performed to specifically understand why the closure of
+intersection 9 appears to be the pivotal factor in increased evacuation times.
+This could be studied by compiling empirical data during a real evacuation of
+the SUI.
 
 \section{Final Notes}
 It should be noted that all of the authors contributed equally to this work.
